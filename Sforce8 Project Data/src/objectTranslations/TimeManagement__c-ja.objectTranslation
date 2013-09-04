@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>勤怠管理</value>
+    </caseValues>
+    <fields>
+        <label><!-- 入室 --></label>
+        <name>EnteringTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- 外出 --></label>
+        <name>OutingTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- 打刻日時 --></label>
+        <name>RecordTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- 出勤時間 --></label>
+        <name>WorkBeginTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- 勤怠日 --></label>
+        <name>WorkDay__c</name>
+    </fields>
+    <fields>
+        <label><!-- 退勤時間 --></label>
+        <name>WorkEndTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- 従業員名 --></label>
+        <name>WorkerName__c</name>
+    </fields>
+    <fields>
+        <label><!-- 従業員 --></label>
+        <name>WorkerRef__c</name>
+        <relationshipLabel><!-- 勤怠管理 --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

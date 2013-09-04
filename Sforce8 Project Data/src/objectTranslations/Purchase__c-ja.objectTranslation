@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>仕入[調理]</value>
+    </caseValues>
+    <fields>
+        <help><!-- 伝票の合計金額を税抜きにて入力してください。 --></help>
+        <label><!-- 計(税抜) --></label>
+        <name>Denpyoukei__c</name>
+    </fields>
+    <fields>
+        <label><!-- 仕入日 --></label>
+        <name>Field1__c</name>
+    </fields>
+    <fields>
+        <help><!-- 仕入日を半角数字の８桁で入力してください、たとえば、20110103と！ --></help>
+        <label><!-- 仕入日 --></label>
+        <name>JinyaRevenue__c</name>
+        <relationshipLabel><!-- 仕入[調理] --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- 仕入のカテゴリ別仕入高を計上のため、必ず入力してください。 --></help>
+        <label><!-- 種別 --></label>
+        <name>PurchaseType__c</name>
+        <picklistValues>
+            <masterLabel>ブライダルフェア用</masterLabel>
+            <translation><!-- ブライダルフェア用 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>研究用</masterLabel>
+            <translation><!-- 研究用 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>通常</masterLabel>
+            <translation><!-- 通常 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 仕入先 --></label>
+        <name>Purchasesource__c</name>
+        <relationshipLabel><!-- 仕入[調理] --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>仕入[調理] Layout</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 仕入 - 伝票情報 [調理] --></label>
+            <section>仕入 - 伝票情報 [調理]</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label><!-- CustomLink1 --></label>
+        <name>CustomLink1</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CustomLink2 --></label>
+        <name>CustomLink2</name>
+    </webLinks>
+</CustomObjectTranslation>

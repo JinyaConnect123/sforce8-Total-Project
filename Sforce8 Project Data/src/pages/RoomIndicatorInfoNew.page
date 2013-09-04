@@ -1,0 +1,476 @@
+<apex:page controller="RoomIndicatorInfoNew" action="{!toToday}" id="RoomIndicatorPage" sidebar="false">
+<script>
+function allowDrop(ev)
+{
+    ev.preventDefault();
+}
+
+function drag(ev)
+{
+    
+ev.dataTransfer.setData("Text",ev.target.id);
+
+}
+
+function drop(ev)
+{
+ev.preventDefault();
+var data=ev.dataTransfer.getData("Text");
+var parent= ev.target.id;
+//var RoomType=ev.target.RoomType;
+ev.target.appendChild(document.getElementById(data));
+//alert('Dragged SuccessFully'+data + 'Parent val ' +parent+ ' Room Type '+ev.target.RoomType);
+addleadFun(data,parent);
+
+}
+</script>
+<style>
+/* Info Block Container */
+#container{
+width:100%
+margin: 0 auto;
+vertical-align: top;
+text-align: center;
+}
+/* Info Block Header */
+#header{
+ font-weight:bold;
+ width:46px;
+ height:14px;
+ margin: 0 auto;
+ overflow:hidden;
+}
+/* Info Block Middle */
+.midbody{
+ width:46px;
+ height:14px;
+ margin:0 auto;
+ overflow:hidden;
+ background: #ffffcc;
+ overflow:hidden;
+ margin-top: 2px;
+}
+/* Info Block Footer */
+#foot{
+ width:46px;
+ height:14px;
+ margin:0 auto;
+ vertical-align:bottom;
+ overflow:hidden;
+ white-space: nowrap;
+ margin-top: 2px;
+}
+/* 色設定 */
+.isEmptyStatus{background:#00ccff;}         /* 空室 */
+.isStayStatus{background:#90EE90;}          /* 滞在 */
+.isChkOutDayStatus{background:#FDD017;}     /* 出発予定 */
+.isChkOutStatus{background:#F75D59;}        /* 出発 */
+.isBadStatus{background:#2554C7;}           /* 故障 */
+.isCleanStatus{background:#B0C4DE;}         /* 未清掃      ->判断条件は判断要 */
+.isConfirmationing{background:#E238EC;}     /* 仮チェックイン */
+</style>
+<script>
+beenFocused = true;
+var $j = jQuery.noConflict();
+</script>
+<apex:outputPanel id="refresh1" rendered="{!refreshPage}">
+<script>
+window.top.location='/apex/RoomIndicatorInfoNew';
+</script>
+</apex:outputPanel>
+<apex:actionStatus onstart="javascript:blockUi();" onstop="unblockUi();" id="refStatusBlock"/>
+
+<apex:sectionHeader title="Room Indicator" subtitle="ルームインジケータ"/>
+
+<apex:form id="actionForm">
+
+
+<apex:pageBlock id="roomIndicator" title="{!strToday}">
+  <apex:actionFunction action="{!LeadMove}" name="addleadFun" reRender="roomIndicator" status="refStatusBlock"  oncomplete="window.location.href=window.location.href">
+<apex:param name="LeadId" value="" />
+<apex:param name="RoomId" value="" />
+</apex:actionFunction>
+<apex:outputLabel id="messageBlock" >
+<apex:pageMessages />
+</apex:outputLabel>
+<apex:outputLabel >
+    <apex:selectList size="1" value="{!branchShopNm}" rendered="{!branchShopLst.size > 0}">
+        <apex:selectOption itemValue="" itemLabel="All"/>
+        <apex:selectOptions value="{!branchShopLst}" />
+        <apex:actionSupport event="onchange" action="{!gotoDate}" reRender="roomIndicator" status="refStatusBlock"/>
+    </apex:selectList>
+</apex:outputLabel>
+<!-- BUTTON処理する -->
+<apex:pageBlockButtons location="top" rendered="{!isShowHisFlg}">
+    <apex:commandButton style="width:100px;height=20px" value="前日" action="{!toPrev}" reRender="roomIndicator" status="refStatusBlock"/>
+    <apex:commandButton style="width:100px;height=20px" value="今日" action="{!toToday}" reRender="roomIndicator" status="refStatusBlock"/>
+    <apex:commandButton style="width:100px;height=20px" value="翌日" action="{!toNext}" reRender="roomIndicator" status="refStatusBlock"/>
+    <apex:outputPanel style="vertical-align:top" id="calendarPanel">
+    <apex:outputLabel value="指定日 " for="gotoDate" styleClass="label" style="font-weight: bold;"/>
+    <apex:inputField value="{!selectDate.Checkinday__c}" id="gotoDate">
+        <apex:actionSupport event="onchange" action="{!gotoDate}" rerender="roomIndicator" status="refStatusBlock"/>
+    </apex:inputField>
+    </apex:outputPanel>
+</apex:pageBlockButtons>
+
+<apex:outputPanel id="colorpanel">
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;空室&nbsp;[{!iEmptyStatusSum}]&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isEmptyStatus"/></span>
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;滞在&nbsp;[{!isStayStatusSum}]&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isStayStatus"/></span>
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;出発予定&nbsp;[{!checkOutDayStatusSum}]&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isChkOutDayStatus"/></span>
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;出発&nbsp;[{!checkOutStatusSum}]&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isChkOutStatus"/></span>
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;故障&nbsp;[{!isBadStatusSum}]&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isBadStatus"/></span>
+<!--
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;仮チェックイン&nbsp;[{!isConfirmationSum}]&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isConfirmationing"/></span>
+ -->
+<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 1px;width:60px;"/>
+<span style="vertical-align: middle; font-weight: bold;">&nbsp;未清掃&nbsp;&nbsp;<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style=" height: 20px;width:60px;vertical-align:middle; " class="isCleanStatus"/></span>
+</apex:outputPanel>
+<br></br>
+<apex:outputPanel >
+<img src="{!URLFOR($Resource.reportFiles, 'img/blank')}" style="height:3px; width: 100%"/>
+</apex:outputPanel>
+<apex:outputPanel id="ciTable" >
+<!-- 自動更新を行う -->
+<apex:actionPoller action="{!gotoDate}" id="timerPoller"
+    interval="{!$Setup.CommDefine__c.TimerSecond__c}" reRender="roomIndicator" />
+  
+<script>
+    $j(document).ready(function() {
+        bindEvent();
+    });
+</script>
+
+    <table id="dTable" class="list" border="0" cellpadding="0" cellspacing="0">
+        <thead class="rich-table-thead">
+        <tr class="headerRow">
+            <th class="headerRow" nowrap="nowrap">
+                <apex:outputText value="場所"/>
+            </th>
+            <th class="headerRow" nowrap="nowrap">
+                <apex:outputText value="フロア"/>
+            </th>
+            <th colspan="{!maxRooms}" style="text-align: center">客室</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+        <apex:repeat var="area" value="{!areaInfLst}">
+        <apex:repeat var="floor" value="{!area.floorRoomLst}">
+        <tr>
+            <td class="dataCell" nowrap="nowrap">
+                {!area.areaName}
+            </td>
+            <td class="dataCell" nowrap="nowrap">
+                {!floor.floorName}
+            </td>
+            <apex:repeat var="room" value="{!floor.roomLst}">
+                <td>
+                <!-- Room Info Block -->
+                <div  id="{!room.sobj.id}" ondrop="drop(event)" ondragover="allowDrop(event)" name="roomstatusBlock" roomId="{!room.sobj.id}" leadId="{!room.leadId}"
+                    style="display: {!if(room.sobj.id != null, 'true', 'none')}; {!if(room.isCanClick, 'cursor:pointer;cursor:hand', '')}" >
+                   <div id="header">{!room.sobj.Name}</div>
+                   
+                   <div id="{!room.sobj.id}" RoomType="{!room.sobj.TypeRoomRef__c}" class="midbody" style="background-color: {!if(room.isUnClean, '#B0C4DE', '')}" >{!room.sobj.TypeRoomRef__r.Name} </div>
+                  
+                   <div draggable="True"  ondragstart="drag(event)" id="{!room.LeadId}" title="{!room.guestName}" class="{!room.cssClass}" style="vertical-align: middle;font-size: smaller;width:46px;margin: 0 auto;" >
+                   {!room.simpleGuestNm}
+                   <!--Test Val-->
+                   </div>
+                   
+                  
+
+                </div>
+                </td>
+            </apex:repeat>
+        </tr>
+        </apex:repeat>
+        </apex:repeat>
+        </tbody>
+    </table>
+  
+</apex:outputPanel>
+</apex:pageBlock>
+</apex:form>
+<div id="myPanel" style="display: none; width: 500px; height: 175px;" >
+  <div class="hd">
+    <apex:outputText value="部屋詳細情報" />
+  </div>
+  <div class="bd">
+      <apex:form id="dform">
+        <apex:pageBlock id="dblock">
+          <apex:pageBlockSection columns="1" id="dsec">
+            <apex:outputField id="bname"    value="{!RoomDetail.leadDetail.name}"/>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="お客様" />
+                <apex:outputField id="bContactRef"    value="{!RoomDetail.leadDetail.Relcontact__r.Name}" />
+            </apex:pageBlockSectionItem>
+            <apex:outputField id="bField298__c"    value="{!RoomDetail.leadDetail.Field298__c}"/>
+            <!--
+            <apex:outputField id="bReceptiondate__c"    value="{!RoomDetail.leadDetail.Receptiondate__c}"/> -->
+            <apex:outputField id="bEntryTime__c"    value="{!RoomDetail.leadDetail.LeadIndexRef__r.EntryDate__c}"/>
+            <apex:outputField id="bField4__c"   value="{!RoomDetail.leadDetail.LeadIndexRef__r.EntryTime__c}"/>
+            <apex:outputField id="bDepartureDate__c"  value="{!RoomDetail.leadDetail.LeadIndexRef__r.DepartureDate__c}"/>
+            <apex:outputField id="bDepartureTime__c"  value="{!RoomDetail.leadDetail.LeadIndexRef__r.DepartureTime__c}"/>
+            <apex:outputField id="bStayPersons__c" value="{!RoomDetail.leadDetail.StayPersons__c}" />
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="予約チャネル" />
+                <apex:outputField id="bField2__c" value="{!RoomDetail.leadDetail.Field2__c}" />
+            </apex:pageBlockSectionItem>
+
+            <apex:outputField id="bplaninfo"    value="{!RoomDetail.leadDetail.Field310__c}" />
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="部屋" />
+                <apex:outputField id="bRroom__c" value="{!RoomDetail.leadDetail.Rroom__c}" />
+            </apex:pageBlockSectionItem>
+            <apex:outputField id="bComment3__c"  value="{!RoomDetail.leadDetail.Comment3__c}" />
+            <apex:inputHidden id="leadIdHidden" value="{!strLeadId}" />
+            <apex:inputHidden id="accIdHidden"  />
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+      <div style="text-align: right;" >
+
+        <apex:commandButton value="チェックイン"
+            oncomplete="YAHOO.force.com.hideMe();" action="{!checkInByRoom}"
+            reRender="roomIndicator"  status="refStatusBlock"  style="width: 100px" />
+        <input type="button" value="会計" id="accBtn" class="btn" style="width: 100px" onclick="javascript:openAccWindos()"/>
+        <input type="button" value="キャンセル" id="cancelBtn" class="btn" style="width: 100px" />
+      </div>
+      </apex:form>
+  </div>
+
+</div>
+
+<!-- Load jQuery -->
+<apex:stylesheet value="{!URLFOR($Resource.queryfiles, 'css/ui-lightness/jquery-ui-1.8.21.custom.css')}"/>
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery-ui-1.8.21.custom.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/dateformat.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.blockUI.js')}"/>
+<!-- Load YUI -->
+<apex:stylesheet value="{!URLFOR($Resource.yahooFiles, 'css/skin.css')}"/>
+<apex:includeScript value="{!URLFOR($Resource.yahooFiles, 'js/yahoo-dom-event.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.yahooFiles, 'js/container-min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.yahooFiles, 'js/animation-min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.yahooFiles, 'js/dragdrop-min.js')}"/>
+
+
+<script>
+function bindEvent() {
+
+    // Booking Btn Click
+    $j("div[name='roomstatusBlock']").click(function() {
+        var p1 = $j(this).attr("roomId");
+        var p2 = $j(this).attr("leadId");
+        if(p2 == null || p2 == ''){
+            YAHOO.force.com.hideMe();
+        }else{
+            ajaxGetRoomInfo(p1, p2);
+        }
+    });
+    // キャンセル
+    $j("#cancelBtn").click(function(e){
+        YAHOO.force.com.hideMe();
+    });
+
+}
+// 会計
+function openAccWindos() {
+    var accId = $j("input[id$=':accIdHidden']").val();
+    //YAHOO.force.com.hideMe();
+    window.open("/" + accId+"/e?retURL=/" + accId);
+}
+// Get RoomDetail Info By Ajax
+function ajaxGetRoomInfo(roomId, leadId) {
+    Visualforce.remoting.Manager.invokeAction(
+        '{!$RemoteAction.RoomIndicatorInfoNew.getRoomInfo}',
+        roomId,leadId,
+        function(result, event){
+            if (event.status) {
+                if(result== null || result.length == 0){
+                    alert("データ詳細がありません。");
+                }else{
+                    YAHOO.force.com.showMe(result);
+                }
+
+            } else if (event.type === 'exception') {
+                alert("error データ詳細がありません。");
+            } else {
+                alert(" noknown error データ詳細がありません。");
+            }
+        },
+        {escape: true}
+    );
+}
+
+// Create a namespace for our custom functions
+YAHOO.namespace("force.com");
+var dateFormat = new DateFormat("yyyy-MM-dd");
+var dateTimeFormat = new DateFormat("yyyy-MM-dd HH:mm:SS");
+// Function called when we want to show the dialog
+YAHOO.force.com.showMe = function(result) {
+    // 予約データがない場合
+    if(result.leadId == null){return;}
+
+    document.getElementById("myPanel").style.display = "block";
+    // 予約リンク
+    if(isInvalid(result.leadName)){
+        $j("span[id$=':bname']").html("");
+    } else {
+        var leadId = result.leadId;
+        var leadNm = result.leadName;
+        var leadLink = "<a href='javascript:void(0);' onclick='window.open(\"/"+ leadId +"\")' >" + leadNm + "</a>" ;
+        $j("span[id$=':bname']").html(leadLink);
+    }
+    // 顧客存在する場合:顧客情報を表示する
+    if(isInvalid(result.customId)){
+        $j("span[id$=':bContactRef']").html("");
+    } else {
+        var contactId = result.customId;
+        var contactNm = result.customName;
+        var contactLink = "<a href='javascript:void(0);' onclick='window.open(\"/"+ contactId +"\")' >" + contactNm + "</a>" ;
+        $j("span[id$=':bContactRef']").html(contactLink);
+    }
+    //お客ステータス
+    if(isInvalid(result.customStatus)){
+        $j("span[id$=':bField298__c']").text("");
+    } else {
+        $j("span[id$=':bField298__c']").text(result.customStatus);
+    }
+    // 予約インデックス情報
+    // 到着日
+    if(isInvalid(result.entryDate)){
+        $j("span[id$=':bEntryTime__c']").text("");
+    } else {
+        var EntryDate__cFromLong = new Date(result.entryDate);
+        $j("span[id$=':bEntryTime__c']").text(dateFormat.format(EntryDate__cFromLong));
+    }
+    // 到着時刻
+    if (isInvalid(result.entryTime)) {
+        $j("span[id$=':bField4__c']").text("");
+    } else {
+        $j("span[id$=':bField4__c']").text(result.entryTime);
+    }
+    // 出発日
+    if(isInvalid(result.departureDate)){
+        $j("span[id$=':bDepartureDate__c']").text("");
+    } else {
+        var DepartureDate__cFromLong = new Date(result.departureDate);
+        $j("span[id$=':bDepartureDate__c']").text(dateFormat.format(DepartureDate__cFromLong));
+    }
+    // 出発時刻
+    if (isInvalid(result.departureTime)) {
+        $j("span[id$=':bDepartureTime__c']").text("");
+    } else {
+        $j("span[id$=':bDepartureTime__c']").text(result.departureTime);
+    }
+    // 人数
+    if (isInvalid(result.leadPeopleNum)) {
+        $j("span[id$=':bStayPersons__c']").text("");
+    } else {
+        $j("span[id$=':bStayPersons__c']").text(result.leadPeopleNum);
+    }
+    // 予約チャネル
+    if (isInvalid(result.leadChannel)) {
+        $j("span[id$=':bField2__c']").text("");
+    } else {
+        $j("span[id$=':bField2__c']").text(result.leadChannel);
+    }
+    // プラン
+    if(isInvalid(result.leadPlan)){
+        $j("span[id$=':bplaninfo']").text("");
+    } else {
+        $j("span[id$=':bplaninfo']").text(result.leadPlan);
+    }
+    // 部屋
+    if(isInvalid(result.leadRoom)){
+        $j("span[id$=':bRroom__c']").text("");
+    } else {
+        $j("span[id$=':bRroom__c']").text(result.leadRoom);
+    }
+    // 特記事項
+    if(isInvalid(result.leadMemo)){
+        $j("span[id$=':bComment3__c']").html("");
+    }else{
+       // Html <br> -> <br></br> Replace
+       var comment = (result.leadMemo).replace(new RegExp("&\lt;br&\gt;", "g"), "<br>");
+       $j("span[id$=':bComment3__c']").html(comment);
+    }
+    // 予約ID
+    $j("input[id$=':leadIdHidden']").val(result.leadId);
+    // 会計ID
+    if(isInvalid(result.accountId)){
+        $j("#accBtn").hide();
+        $j("input[id$=':accIdHidden']").val("");
+    } else {
+        $j("#accBtn").show();
+        $j("input[id$=':accIdHidden']").val(result.accountId);
+    }
+    // Window Show
+    YAHOO.force.com.myDialog.show();
+}
+
+// Function called when we want to hide the dialog
+YAHOO.force.com.hideMe = function() {
+    YAHOO.force.com.myDialog.hide();
+}
+
+// Function called when the DOM is ready to create the dialog,
+// render the dialog into the document body, add our dialog skin
+// css to the body tag, and wire up the buttons on our dialog
+YAHOO.force.com.init = function() {
+    document.body.className = document.body.className + " yui-skin-sam";
+
+    YAHOO.force.com.myDialog = new YAHOO.widget.Panel(
+        "myPanel",  // The id of our dialog container
+        {
+                width           :   600,    // You can play with this until it's right
+                visible         :   false,  // Should be invisible when rendered
+                draggable       :   true,   // Make the dialog draggable
+                close           :   false,  // Don't include a close title button
+                modal           :   true,   // Make it modal
+                fixedCenter     :   true,   // Keep centered if window is scrolled
+                zindex          :   4,     // Make sure it's on top of everything
+
+                // This line adds the appear/vanish fade effect
+                effect          :   {
+                                      effect:YAHOO.widget.ContainerEffect.FADE,
+                                      duration:0.35
+                                    }
+        }
+     );
+
+    // Render the dialog to the document.body level of the DOM
+    YAHOO.force.com.myDialog.render(document.body);
+}
+// *********** Add the init method to the window.load event
+YAHOO.util.Event.addListener(window, "load", YAHOO.force.com.init);
+
+// 画面Lockする
+function blockUi() {
+    $j("[id$=':roomIndicator']").block({
+         message: '<h1><img src="{!URLFOR($Resource.queryfiles, 'css/blockui/busy.gif')}" /> Processing...</h1>'
+    });
+    //reloadpage();
+    return true;
+}
+// Lock解除
+function unblockUi () {
+    $j("[id$=':roomIndicator']").unblock();
+    
+    
+}
+function reloadpage()
+{
+    top.location.reload(true);
+    //location.reload();
+}
+// 有効性チェック
+function isInvalid(val) {
+    return (val == null || val == undefined);
+}
+</script>
+
+
+
+</apex:page>

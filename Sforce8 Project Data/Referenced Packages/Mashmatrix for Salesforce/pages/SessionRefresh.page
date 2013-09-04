@@ -1,0 +1,21 @@
+<apex:page showHeader="false">
+<html>
+  <!-- This page is expected to be loaded inside of the iframe -->
+  <head>
+    <!-- refresh after 30 min from when loaded. -->
+    <meta http-equiv="refresh" content="1800" />
+    <script type="text/javascript">
+window.onload = function() {
+  for (var i=0; i < window.parent.frames.length; i++) {
+    try {
+      var fr = window.parent.frames[i];
+      if (typeof fr.sforce !== 'undefined') {
+        fr.sforce.connection.sessionId = '{!GETSESSIONID()}';
+      }
+    } catch (e) {}
+  }
+}
+    </script>
+  </head>
+</html>
+</apex:page>

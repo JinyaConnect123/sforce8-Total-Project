@@ -1,0 +1,190 @@
+<apex:component access="global">
+  <apex:attribute name="targetId" type="Id" description="Target Dashboard Object ID" access="global"></apex:attribute>
+  <apex:attribute name="contextId" type="Id" description="Context of Dashboard" access="global"></apex:attribute>
+  <apex:attribute name="width" type="String" description="Dashboard width (px or %)" access="global"></apex:attribute>
+  <apex:attribute name="height" type="String" description="Dashboard height (px or %). The value after minus (e.g. '100%-20') represents the offset from the entire display height." access="global"></apex:attribute>
+  <apex:attribute name="staticView" type="Boolean" description="Viewing Dashboard in static mode (not editable)" access="global"></apex:attribute>
+  <apex:attribute name="hideMenubar" type="Boolean" description="Hide Application Menubar" access="global"></apex:attribute>
+  <apex:attribute name="hideDrawer" type="Boolean" description="Hide Drawer" access="global"></apex:attribute>
+  <apex:attribute name="collapseDrawer" type="Boolean" description="Collapse drawer on startup" access="global"></apex:attribute>
+  <apex:attribute name="hideNavigator" type="Boolean" description="Hide Application Menubar" access="global"></apex:attribute>
+  <apex:attribute name="collapseNavigator" type="Boolean" description="Collapse navigator on startup" default="true" access="global"></apex:attribute>
+  <apex:attribute name="hideDataSourceDirectory" type="Boolean" description="Hide datasource directory section in the drawer." access="global"></apex:attribute>
+  <apex:attribute name="hideWidgetDirectory" type="Boolean" description="Hide widget directory section in the drawer." access="global"></apex:attribute>
+  <apex:attribute name="hideEnvironmentTree" type="Boolean" description="Hide environment variable section in the drawer" access="global"></apex:attribute>
+  <apex:attribute name="hideDock" type="Boolean" description="Hide dock in the bottom of dashboard" access="global"></apex:attribute>
+<!--
+  <apex:attribute name="debug" type="Boolean" description="In debug mode" default="false"></apex:attribute>
+-->
+  <input type="hidden" id="targetId-{!id}" 
+         value="<apex:outputText >{!NULLVALUE(targetId,$Setup.AfrousSettings__c.DefaultDashboardId__c)}</apex:outputText>" />
+  <input type="hidden" id="contextId-{!id}"
+         value="<apex:outputText >{!contextId}</apex:outputText>" />
+  <input type="hidden" id="width-{!id}"
+         value="<apex:outputText >{!width}</apex:outputText>" />
+  <input type="hidden" id="height-{!id}"
+         value="<apex:outputText >{!height}</apex:outputText>" />
+  <input type="hidden" id="staticView-{!id}"
+         value="<apex:outputText >{!staticView}</apex:outputText>" />
+  <input type="hidden" id="hideMenubar-{!id}"
+         value="<apex:outputText >{!hideMenubar || $Setup.AfrousSettings__c.HideMenubar__c}</apex:outputText>" />
+  <input type="hidden" id="hideDrawer-{!id}"
+         value="<apex:outputText >{!hideDrawer || $Setup.AfrousSettings__c.HideDrawer__c}</apex:outputText>" />
+  <input type="hidden" id="collapseDrawer-{!id}" 
+         value="<apex:outputText >{!collapseDrawer || $Setup.AfrousSettings__c.CollapseDrawer__c}</apex:outputText>" />
+  <input type="hidden" id="hideNavigator-{!id}"
+         value="<apex:outputText >{!hideNavigator || $Setup.AfrousSettings__c.HideNavigator__c}</apex:outputText>" />
+  <input type="hidden" id="collapseNavigator-{!id}" 
+         value="<apex:outputText >{!collapseNavigator && IF(NOT($Setup.AfrousSettings__c.CollapseNavigator__c), False, True)}</apex:outputText>" />
+  <input type="hidden" id="hideDataSourceDirectory-{!id}"
+         value="<apex:outputText >{!hideDataSourceDirectory || $Setup.AfrousSettings__c.HideDataSourceDirectory__c}</apex:outputText>" />
+  <input type="hidden" id="hideWidgetDirectory-{!id}" 
+         value="<apex:outputText >{!hideWidgetDirectory || $Setup.AfrousSettings__c.HideWidgetDirectory__c}</apex:outputText>" />
+  <input type="hidden" id="hideEnvironmentTree-{!id}" 
+         value="<apex:outputText >{!hideEnvironmentTree || $Setup.AfrousSettings__c.HideEnvironmentTree__c}</apex:outputText>" />
+  <input type="hidden" id="hideDock-{!id}" 
+         value="<apex:outputText >{!hideDock || $Setup.AfrousSettings__c.HideDock__c}</apex:outputText>" />
+  <input type="hidden" id="adminEnabled-{!id}" 
+         value="<apex:outputText >{!IF(NOT($Setup.AfrousSettings__c.AdminEnabled__c), False, True)}</apex:outputText>" />
+
+
+  <input type="hidden" id="pluginScript1-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript1__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript2-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript2__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript3-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript3__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript4-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript4__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript5-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript5__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript6-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript6__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript7-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript7__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript8-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript8__c}</apex:outputText>" />
+  <input type="hidden" id="pluginScript9-{!id}"
+         value="<apex:outputText >{!$Setup.AfrousPlugins__c.PluginScript9__c}</apex:outputText>" />
+
+  <div id="afd-container-{!id}" ></div>
+
+  <iframe src="{!URLFOR($Page.afdsf__SessionRefresh)}"
+          style="position:absolute;top:-10000;left:-10000;border:0;width:1px;height:1px;"></iframe>
+
+  <script type="text/javascript" src="{!URLFOR($Resource.afdsf__AfrousDashboardResources, 'js/afrous-dashboard-sf-include.js')}"></script>
+  <script type="text/javascript">
+(function() {
+
+  var container = getElement('afd-container');
+
+  var width = getParamValue('width') || '100%'; 
+  var height = getParamValue('height') || '100%';
+  if (/\d+(px|%)/.test(width)) {
+    container.style.width = width;
+  }
+  if (/\d+px/.test(height)) {
+    container.style.height = height;
+  }
+
+  afrous.dashboard.globalConfig = {
+    "AFROUS_BASE_URL" : "{!URLFOR($Resource.afdsf__AfrousDashboardResources, '')}",
+    "EXTJS_BASE_URL" : "{!URLFOR($Resource.afdsf__ExtJS, '')}",
+    "FUSIONCHARTS_BASE_URL" : "{!URLFOR($Resource.afdsf__FusionChartsFree, '')}",
+    "SFORCE_SESSION_ID" : "{!$Api.Session_Id}",
+    "SFORCE_DEFAULT_NAMESPACE" : "afdsf"
+  }
+
+  var dashboardId = getParamValue('targetId');
+
+  var m = height.match(/^(\d+)%(\-(\d+))?$/);
+  if (m) observe('resize', resizeDashboard);
+
+  observe('load', renderDashboard);
+
+  function getElement(name) {
+    return document.getElementById(name + "-{!id}");
+  }
+
+  function getParamValue(name) {
+    var input = getElement(name);
+    return input ? input.value : null;
+  }
+
+  function getBooleanValue(name) {
+    return getParamValue(name)==='true';
+  }
+
+  function observe(event, func) {
+    window.addEventListener ? window.addEventListener(event, func, false) :
+    window.attachEvent ? window.attachEvent('on'+event, func) :
+    null;
+  }
+
+  function resizeDashboard() {
+    var docHeight = document.documentElement.clientHeight;
+    var bodyHeight = document.body.clientHeight;
+    var dispHeight = document.compatMode=="CSS1Compat" ? docHeight : bodyHeight;
+    dispHeight = Math.floor(dispHeight*parseInt(m[1])/100);
+    dispHeight -= parseInt(m[3] || 0);
+    dispHeight = dispHeight>150 ? dispHeight : 150;
+    container.style.height = dispHeight + 'px';
+  }
+
+  function getPluginScripts() {
+    var scripts = [];
+    for (var i=1; i<=10; i++) {
+      var scriptUrl = getParamValue('pluginScript'+i);
+      if (scriptUrl) scripts.push(scriptUrl);
+    }
+    return scripts;
+  }
+
+  function renderDashboard() {
+    var staticView = getBooleanValue('staticView');
+    var hideMenubar = getBooleanValue('hideMenubar');
+    var hideDrawer = getBooleanValue('hideDrawer');
+    var collapseDrawer = getBooleanValue('collapseDrawer');
+    var hideNavigator = getBooleanValue('hideNavigator');
+    var collapseNavigator = getBooleanValue('collapseNavigator');
+    var hideDataSourceDirectory = getBooleanValue('hideDataSourceDirectory');
+    var hideWidgetDirectory = getBooleanValue('hideWidgetDirectory');
+    var hideEnvironmentTree = getBooleanValue('hideEnvironmentTree');
+    var hideDock = getBooleanValue('hideDock');
+
+    var scripts = getPluginScripts();
+
+    afrous.dashboard.showDashboard({
+      el : container, id : dashboardId,
+      forceId : true, autoClone : false,
+      staticView : staticView, hideMenubar : hideMenubar,
+      hideDrawer : hideDrawer, collapseDrawer : collapseDrawer,
+      hideNavigator : hideNavigator, collapseNavigator : collapseNavigator,
+      hideDock : hideDock,
+      drawerConfig : {
+        hideDataSourceDirectory : hideDataSourceDirectory,
+        hideWidgetDirectory : hideWidgetDirectory,
+        hideEnvironmentTree : hideEnvironmentTree
+      },
+      scripts : scripts,
+      userInfo : {
+        id : '{!$User.Id}',
+        privileges : getBooleanValue('adminEnabled') ? {
+          'view' : true,
+          'save' : true,
+          'publish' : true,
+          'delete' : true
+        } : {
+          'view' : true,
+          'save' : true,
+          'delete' : true
+        }
+      }
+//      helpDocUrl : 'http://www.mashmatrix.com/en/help/sf-dashboard/'
+    });
+    if (m) resizeDashboard();
+  }
+
+})()
+  </script>
+</apex:component>

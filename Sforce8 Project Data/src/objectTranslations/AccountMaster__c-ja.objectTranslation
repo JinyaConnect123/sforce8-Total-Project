@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>会計商品</value>
+    </caseValues>
+    <fields>
+        <label><!-- 商品処理種別 --></label>
+        <name>ActionType__c</name>
+        <picklistValues>
+            <masterLabel>プラン</masterLabel>
+            <translation><!-- プラン --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>前受付金</masterLabel>
+            <translation><!-- 前受付金 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>室料</masterLabel>
+            <translation><!-- 室料 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>通常</masterLabel>
+            <translation><!-- 通常 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- 商品コード桁数が4桁のときは、１を返す --></help>
+        <label><!-- $商品コード桁数 --></label>
+        <name>CodeNumbers__c</name>
+    </fields>
+    <fields>
+        <label><!-- #DP --></label>
+        <name>DPChange__c</name>
+        <relationshipLabel><!-- 会計マスタ (#DP) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- 宴会手配書に表示する商品の順番で数字を入力してください --></help>
+        <label><!-- 見積項目# --></label>
+        <name>EstimateFieldNo__c</name>
+    </fields>
+    <fields>
+        <label><!-- 小計割引／割増 --></label>
+        <name>Field10__c</name>
+    </fields>
+    <fields>
+        <label><!-- ﾌﾘｰ宣言 --></label>
+        <name>Field11__c</name>
+    </fields>
+    <fields>
+        <label><!-- お部屋 --></label>
+        <name>Field12__c</name>
+        <relationshipLabel><!-- 会計マスタ --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- 同一メニューで単価の異なるマスタをつなげるため、たとえば、朝食の単価¥2,000、¥3,000の切り替えのため --></help>
+        <label><!-- $会計マスタ --></label>
+        <name>Field13_del__c</name>
+        <relationshipLabel><!-- 会計マスタ --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- お料理 --></label>
+        <name>Field2__c</name>
+        <relationshipLabel><!-- 会計マスタ --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 商品コード --></label>
+        <name>Field3__c</name>
+    </fields>
+    <fields>
+        <label><!-- リンクＤＰコード --></label>
+        <name>Field4__c</name>
+        <relationshipLabel><!-- 会計マスタ --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 単価 --></label>
+        <name>Field5__c</name>
+    </fields>
+    <fields>
+        <label><!-- ｻﾌﾞ単価 --></label>
+        <name>Field6__c</name>
+    </fields>
+    <fields>
+        <label><!-- 原価 --></label>
+        <name>Field7__c</name>
+    </fields>
+    <fields>
+        <label><!-- 単価2 --></label>
+        <name>Field8__c</name>
+    </fields>
+    <fields>
+        <label><!-- ｾｯﾄ宣言 --></label>
+        <name>Field9__c</name>
+    </fields>
+    <fields>
+        <help><!-- 集計先変更定義 --></help>
+        <label><!-- #GP --></label>
+        <name>GPChange__c</name>
+        <relationshipLabel><!-- 会計マスタ --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- 税ステータスが非課税のとき、原価/売価、課税は、原価/売価（税抜) --></help>
+        <label><!-- $原価率 --></label>
+        <name>Genkaritsu__c</name>
+    </fields>
+    <fields>
+        <label><!-- KD表示文字背景色 --></label>
+        <name>KD__c</name>
+    </fields>
+    <fields>
+        <label><!-- 会計科目 --></label>
+        <name>KanjoKamokuRef__c</name>
+        <relationshipLabel><!-- 会計商品 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- OES用ﾒﾆｭｰ --></label>
+        <name>OES__c</name>
+    </fields>
+    <fields>
+        <label><!-- 会計OP --></label>
+        <name>OP__c</name>
+        <relationshipLabel><!-- 会計マスタ --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- PLUｺｰﾄﾞ --></label>
+        <name>PLU__c</name>
+    </fields>
+    <fields>
+        <label><!-- 商品名称（英） --></label>
+        <name>ProductEnName__c</name>
+    </fields>
+    <fields>
+        <help><!-- 売価-原価、税ステータスありなら、売価/1.05-原価 --></help>
+        <label><!-- $粗利益 --></label>
+        <name>Profit__c</name>
+    </fields>
+    <fields>
+        <help><!-- セットメニューのインデックス番号、セットメニュー群は最大50個まで --></help>
+        <label><!-- SCP(5) --></label>
+        <name>SCP_5__c</name>
+    </fields>
+    <fields>
+        <help><!-- 会計明細の$単価(税抜) --></help>
+        <label><!-- $単価(税抜) --></label>
+        <name>SalesnoneTax__c</name>
+    </fields>
+    <fields>
+        <label><!-- サービス料(%) --></label>
+        <name>ServiceRate__c</name>
+    </fields>
+    <fields>
+        <label><!-- 特別税 --></label>
+        <name>SpecialTax__c</name>
+    </fields>
+    <fields>
+        <help><!-- 0: 課税 99:非課税 --></help>
+        <label><!-- 税ｽﾃｰﾀｽ --></label>
+        <name>StsTaxfee__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税 --></label>
+        <name>TaxRateCal__c</name>
+    </fields>
+    <fields>
+        <label><!-- 名称1(ｶﾅ) --></label>
+        <name>X1__c</name>
+    </fields>
+    <fields>
+        <label><!-- 名称3(漢2) --></label>
+        <name>X3_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- 名称4(漢3) --></label>
+        <name>X4_3__c</name>
+    </fields>
+    <fields>
+        <help><!-- セットメニューに金額の内訳をセットする対象かどうかチェックを入れてください --></help>
+        <label><!-- セット --></label>
+        <name>detail13__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税マスタ --></label>
+        <name>jmstRef__c</name>
+        <relationshipLabel><!-- 会計商品 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- $商品コード --></label>
+        <name>nextitemcode__c</name>
+    </fields>
+    <fields>
+        <label><!-- $粗利益率 --></label>
+        <name>proftPer__c</name>
+    </fields>
+    <layouts>
+        <layout>会計マスタ Layout</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- カテゴリ --></label>
+            <section>カテゴリ</section>
+        </sections>
+        <sections>
+            <label><!-- セットメニュー情報 --></label>
+            <section>セットメニュー情報</section>
+        </sections>
+        <sections>
+            <label><!-- 勘定科目 --></label>
+            <section>勘定科目</section>
+        </sections>
+        <sections>
+            <label><!-- 宴会手配書のときの表示順序定義 --></label>
+            <section>宴会手配書のときの表示順序定義</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>名称2(漢1)</nameFieldLabel>
+</CustomObjectTranslation>

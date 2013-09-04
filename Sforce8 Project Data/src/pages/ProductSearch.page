@@ -1,0 +1,178 @@
+<apex:page title="商品選択" controller="ProductSearch_Ctrl" sidebar="false" showHeader="false"
+    tabStyle="AccountMaster__c" action="{!init}">
+    
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.blockUI.js')}"/> 
+<apex:includeScript value="{!$Resource.CommJs}"/>
+    
+<script type="text/javascript">
+$=jQuery.noConflict();
+jQuery(document).ready(function($) {
+    // 自動設定を行う 
+    if ("{!isUpd}" == "true") {
+        var outId = $("input:hidden[id$=':InfoForm:id']").val();
+        var outNm = $("input:hidden[id$=':InfoForm:name']").val();
+        var outPrice = $("input:hidden[id$=':InfoForm:price']").val();
+        var outTaxRate = $("input:hidden[id$=':InfoForm:taxRate']").val();
+        var outServiceTaxRate = $("input:hidden[id$=':InfoForm:serviceRate']").val();
+        var outSpecialTax = $("input:hidden[id$=':InfoForm:specialTax']").val();
+        var outActionType = $("input:hidden[id$=':InfoForm:actionType']").val();
+        selectItem($, outId, outNm, outPrice, outTaxRate,outServiceTaxRate,outSpecialTax,outActionType);
+    }
+    // Insert And UPDの場合、最新情報から親画面へ設定を行う
+    $("a[id$=':selectLink']").click(function() {
+        var currRowIndex = $(this).closest("tr")[0].rowIndex - 1;
+        var outId = $("input:hidden[id$=':" + currRowIndex + ":id']").val();
+        var outNm = $("input:hidden[id$=':" + currRowIndex + ":name']").val();
+        var outPrice = $("input:hidden[id$=':" + currRowIndex + ":price']").val();
+        var outTaxRate = $("input:hidden[id$=':" + currRowIndex + ":taxRate']").val();
+        var outServiceTaxRate = $("input:hidden[id$=':" + currRowIndex + ":serviceRate']").val();
+        var outSpecialTax = $("input:hidden[id$=':" + currRowIndex + ":specialTax']").val();
+        var outActionType = $("input:hidden[id$=':" + currRowIndex + ":actionType']").val();
+        selectItem($, outId, outNm, outPrice, outTaxRate,outServiceTaxRate,outSpecialTax, outActionType);
+    })
+});
+
+function selectItem($, idVal, nameVal, priceVal, taxVal, serviceVal, specialVal, actionType) {
+    if(opener){
+        if(typeof(window.opener.document)=='unknown' || typeof(window.opener.document) == 'undefined' ){ 
+            // Opener Window Is Closed
+            top.window.close();
+        }else{
+            var taxValLabel = (　taxVal == "" ? "0.0%" : taxVal + "%");
+            var serviceLabel = (　serviceVal == "" ? "0.0%" : serviceVal + "%");
+            specialVal = (specialVal == "" ? "0" : specialVal);
+            objs = new Array(nameVal, idVal, nameVal, priceVal, 1, taxValLabel, taxVal, serviceLabel, serviceVal, specialVal,specialVal, actionType);
+            if($.isFunction(window.opener.dispExtendImg)) {
+                if(actionType == "{!ACTTYPE_PLAN}"){
+                    window.opener.dispExtendImg("visible");
+                } else{
+                    window.opener.dispExtendImg("hidden");
+                }
+            }
+                
+            commUtils.popupSetter(objs);
+            window.opener.focus();
+            top.window.close();
+       } 
+     }else{ 
+        // Opener Window Is Closed     
+        top.window.close();
+    }
+}
+function blockUi() {
+    jQuery("#body").block({
+         message: '<h1><img src="{!URLFOR($Resource.queryfiles, 'css/images/busy.gif')}" /> Processing...</h1>'
+    }); 
+    return true;
+}
+// Lock解除
+function unblockUi () {
+    jQuery("#body").unblock(); 
+}
+</script>   
+<apex:form id="searchUserInfo" >
+<apex:pageblock title="会計商品">
+
+    <apex:pageBlockButtons location="bottom">
+        <!-- 検索  -->
+        <apex:commandButton action="{!queryInfo}" value="検索" id="theEditButton"/>
+        <!-- 新規 -->
+        <apex:commandButton action="{!insertInit}" value="新規" id="theInsButton"/>
+    </apex:pageBlockButtons>
+    <!-- 検索条件 -->
+    <apex:pageBlockSection columns="1" title="検索条件" >
+        <apex:outputPanel id="condtionPanel" >
+        <span class="lookupInput">
+        <!--　商品名 -->
+        <apex:pageblockSectionItem >
+            <apex:outputlabel value="商品名" />
+            <apex:inputText value="{!c_productNm}" id="productName" />
+        </apex:pageblockSectionItem>
+        <apex:pageblockSectionItem >
+            <apex:outputlabel value="カテゴリ" style="margin-left: 10px" />
+            <apex:selectList value="{!c_dpId}" multiselect="false" size="1">
+                <apex:selectOption itemValue="" itemLabel=""/>
+                <apex:selectOptions value="{!dpOptionLst}"/>
+            </apex:selectList>
+        </apex:pageblockSectionItem>
+        <apex:pageblockSectionItem >
+            <apex:outputlabel value="部門" style="margin-left: 10px" />
+            <apex:selectList value="{!c_gpId}" multiselect="false" size="1">
+                <apex:selectOption itemValue="" itemLabel=""/>
+                <apex:selectOptions value="{!gpOptionLst}"/>
+            </apex:selectList>
+        </apex:pageblockSectionItem>
+        </span>
+        </apex:outputPanel>
+
+    </apex:pageBlockSection>
+</apex:pageblock>
+</apex:form>
+
+<apex:form id="InfoForm" >
+
+<apex:pageblock title="商品" id="userInfoList" rendered="{!isSel}">
+
+    <apex:pageBlockTable value="{!oProductLst}" var="var" styleClass="list" width="100%">
+        
+        <apex:column >
+              <apex:facet name="header"></apex:facet>
+              <apex:outputLink value="#" id="selectLink">選択</apex:outputLink>
+              <apex:inputHidden value="{!var.id}" id="id"/>
+              <apex:inputHidden value="{!var.name}" id="name"/>
+              <apex:inputHidden value="{!var.Field5__c}" id="price"/>
+              <apex:inputHidden value="{!var.TaxRateCal__c}" id="taxRate" />
+              <apex:inputHidden value="{!var.ServiceRate__c}" id="serviceRate"/>
+              <apex:inputHidden value="{!var.SpecialTax__c}" id="specialTax"/>
+              <apex:inputHidden value="{!var.ActionType__c}" id="actionType"/>
+        </apex:column>
+        <apex:column >
+              <apex:facet name="header">カテゴリ</apex:facet>
+              <apex:outputField value="{!var.Field4__c}" />
+        </apex:column>
+        <apex:column >
+              <apex:facet name="header">部門</apex:facet>
+              <apex:outputField value="{!var.GPChange__c}" />
+        </apex:column>
+        <apex:column >
+              <apex:facet name="header">{!$ObjectType.AccountMaster__c.Fields['Name'].label}</apex:facet>
+              <apex:outputField value="{!var.Name}" />
+        </apex:column>
+        <apex:column >
+              <apex:facet name="header">{!$ObjectType.AccountMaster__c.Fields['Field5__c'].label}</apex:facet>
+              <apex:outputField value="{!var.Field5__c}" />
+        </apex:column>
+    </apex:pageBlockTable>
+
+</apex:pageblock>
+
+<apex:pageblock id="accMstNewPage" rendered="{!isIns}">
+    <apex:pageMessages />
+    <apex:pageBlockButtons location="bottom">
+        <!-- 保存  -->
+        <apex:commandButton value="保存" action="{!insertData}" id="save"/>
+        <!-- キャンセル -->
+        <apex:commandButton action="{!cancelAct}" value="キャンセル" id="cancel" immediate="true"/>
+    </apex:pageBlockButtons>
+    <apex:pageBlockSection columns="1" >
+        <apex:inputField value="{!newAccMst.Name}" required="true" />
+        <apex:inputField value="{!newAccMst.Field5__c}" />
+        <apex:inputField value="{!newAccMst.jmstRef__c}" />
+        <apex:inputField value="{!newAccMst.ServiceRate__c}" />
+        <apex:inputField value="{!newAccMst.SpecialTax__c}" />
+    </apex:pageBlockSection>
+
+</apex:pageblock>
+<apex:outputPanel id="updInfo" rendered="{!isUpd}">
+     <apex:inputHidden value="{!newAccMst.Id}" id="id"/>
+     <apex:inputHidden value="{!newAccMst.Name}" id="name"/>
+     <apex:inputHidden value="{!newAccMst.Field5__c}" id="price"/> <!-- 単価(税金含め) -->
+     <apex:inputHidden value="{!newAccMst.TaxRateCal__c}" id="taxRate"/>
+     <apex:inputHidden value="{!newAccMst.ServiceRate__c}" id="serviceRate"/>
+     <apex:inputHidden value="{!newAccMst.SpecialTax__c}" id="specialTax"/>
+     <apex:inputHidden value="{!newAccMst.ActionType__c}" id="actionType"/> <!-- 商品処理種別 -->
+</apex:outputPanel>
+</apex:form>  
+ 
+</apex:page>

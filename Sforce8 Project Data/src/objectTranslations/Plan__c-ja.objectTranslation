@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>プラン</value>
+    </caseValues>
+    <fields>
+        <label><!-- AccountA --></label>
+        <name>AccountA__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- AccountB --></label>
+        <name>AccountB__c</name>
+        <relationshipLabel><!-- プラン (AccountB) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- AccountC --></label>
+        <name>AccountC__c</name>
+        <relationshipLabel><!-- プラン (AccountC) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- AccountTotal --></label>
+        <name>AccountTotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Charge1 --></label>
+        <name>Charge1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Charge2 --></label>
+        <name>Charge2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Charge3 --></label>
+        <name>Charge3__c</name>
+    </fields>
+    <fields>
+        <label><!-- ChargeRC --></label>
+        <name>ChargeRC__c</name>
+    </fields>
+    <fields>
+        <label><!-- チェックイン --></label>
+        <name>Checkin__c</name>
+        <picklistValues>
+            <masterLabel>15時30分〜19時00分</masterLabel>
+            <translation><!-- 15時30分〜19時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜19時30分</masterLabel>
+            <translation><!-- 15時30分〜19時30分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜20時00分</masterLabel>
+            <translation><!-- 15時30分〜20時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜20時30分</masterLabel>
+            <translation><!-- 15時30分〜20時30分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜21時00分</masterLabel>
+            <translation><!-- 15時30分〜21時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜21時30分</masterLabel>
+            <translation><!-- 15時30分〜21時30分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜22時00分</masterLabel>
+            <translation><!-- 15時30分〜22時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜22時30分</masterLabel>
+            <translation><!-- 15時30分〜22時30分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜23時00分</masterLabel>
+            <translation><!-- 15時30分〜23時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜23時30分</masterLabel>
+            <translation><!-- 15時30分〜23時30分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15時30分〜24時00分</masterLabel>
+            <translation><!-- 15時30分〜24時00分 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- チェックアウト --></label>
+        <name>Checkout__c</name>
+        <picklistValues>
+            <masterLabel>10時00分</masterLabel>
+            <translation><!-- 10時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>11時00分</masterLabel>
+            <translation><!-- 11時00分 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>9時00分</masterLabel>
+            <translation><!-- 9時00分 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- カテゴリ --></label>
+        <name>DpRef__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 部屋タイプの特徴 --></label>
+        <name>Feature__c</name>
+    </fields>
+    <fields>
+        <label><!-- 部門 --></label>
+        <name>GpRef__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Guest Room Type --></help>
+        <label><!-- 部屋タイプ --></label>
+        <name>Guestroomtype__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- イメージ1 --></label>
+        <name>Image1__c</name>
+    </fields>
+    <fields>
+        <label><!-- イメージ2 --></label>
+        <name>Image2__c</name>
+    </fields>
+    <fields>
+        <label><!-- イメージ3 --></label>
+        <name>Image3__c</name>
+    </fields>
+    <fields>
+        <label><!-- イメージ4 --></label>
+        <name>Image4__c</name>
+    </fields>
+    <fields>
+        <label><!-- お食事紹介 --></label>
+        <name>IntroMeal__c</name>
+    </fields>
+    <fields>
+        <label><!-- 消費税 --></label>
+        <name>JmstRef__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Lunch --></label>
+        <name>Lunch__c</name>
+        <relationshipLabel><!-- プラン (Lunch) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- お食事 --></label>
+        <name>Meal__c</name>
+        <picklistValues>
+            <masterLabel>夕食あり</masterLabel>
+            <translation><!-- 夕食あり --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>夕食なし</masterLabel>
+            <translation><!-- 夕食なし --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>朝食あり</masterLabel>
+            <translation><!-- 朝食あり --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>朝食なし</masterLabel>
+            <translation><!-- 朝食なし --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- パッケージコード --></label>
+        <name>PackageCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- PlanNo --></label>
+        <name>PlanNo__c</name>
+    </fields>
+    <fields>
+        <label><!-- プランオープン日時 --></label>
+        <name>PlanStartDateandtime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Plan URL --></label>
+        <name>Plan_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- プランクローズ日時 --></label>
+        <name>Planclosedateandtime__c</name>
+    </fields>
+    <fields>
+        <label><!-- プラン紹介 --></label>
+        <name>Planintro__c</name>
+    </fields>
+    <fields>
+        <label><!-- プラン金額 --></label>
+        <name>Price__c</name>
+    </fields>
+    <fields>
+        <help><!-- サイトへ公開するプランにはチェックを入れる --></help>
+        <label><!-- PublicPlan --></label>
+        <name>PublicPlan__c</name>
+    </fields>
+    <fields>
+        <label><!-- Guest room name --></label>
+        <name>Roomname__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Notice:Please Not USE! --></help>
+        <label><!-- Guest room type --></label>
+        <name>Roomtype__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Seq# --></label>
+        <name>Seq__c</name>
+    </fields>
+    <fields>
+        <label><!-- ServiceNY$ --></label>
+        <name>ServiceN__c</name>
+    </fields>
+    <fields>
+        <label><!-- サービス料(%) --></label>
+        <name>ServiceRate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Service$ --></label>
+        <name>Service__c</name>
+    </fields>
+    <fields>
+        <label><!-- AGT --></label>
+        <name>client__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Dinner --></label>
+        <name>dinner__c</name>
+        <relationshipLabel><!-- プラン --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Cost of meal/person --></label>
+        <name>mealcost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Morning --></label>
+        <name>morning__c</name>
+        <relationshipLabel><!-- プラン (朝食) --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>プラン Layout</layout>
+        <sections>
+            <label><!-- Detail Charge --></label>
+            <section>Detail Charge</section>
+        </sections>
+        <sections>
+            <label><!-- Package Plan Detailed --></label>
+            <section>Package Plan Detailed</section>
+        </sections>
+        <sections>
+            <label><!-- Package Plan Information --></label>
+            <section>Package Plan Information</section>
+        </sections>
+        <sections>
+            <label><!-- Total cost of meal --></label>
+            <section>Total cost of meal</section>
+        </sections>
+        <sections>
+            <label><!-- URL Link of Package Plan --></label>
+            <section>URL Link of Package Plan</section>
+        </sections>
+        <sections>
+            <label><!-- イメージ --></label>
+            <section>イメージ</section>
+        </sections>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- プラン有効期限 --></label>
+            <section>プラン有効期限</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label><!-- PlanDetailSetupBtn --></label>
+        <name>PlanDetailSetupBtn</name>
+    </webLinks>
+</CustomObjectTranslation>

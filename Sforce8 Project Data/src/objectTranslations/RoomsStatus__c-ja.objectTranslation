@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>部屋状態管理</value>
+    </caseValues>
+    <fields>
+        <label><!-- 説明 --></label>
+        <name>Describe__c</name>
+    </fields>
+    <fields>
+        <label><!-- お部屋 --></label>
+        <name>RoomRef__c</name>
+        <relationshipLabel><!-- 部屋状態管理 --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- 該当ステータス開始日 --></help>
+        <label><!-- 管理開始日 --></label>
+        <name>StatusBeginDate__c</name>
+    </fields>
+    <fields>
+        <help><!-- 該当ステータス終了日 --></help>
+        <label><!-- 管理終了日 --></label>
+        <name>StatusEndDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- ステータス --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>故障</masterLabel>
+            <translation><!-- 故障 --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>部屋状態管理レイアウト</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

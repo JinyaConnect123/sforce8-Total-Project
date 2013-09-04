@@ -1,0 +1,69 @@
+<apex:page standardcontroller="AccountAcount__c" extensions="AccountPdfSwitch" action="{!AccAcountsSelectorInit}"
+sidebar="false" showHeader="false">
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.blockUI.js')}"/>
+    <apex:form id="pdfBulkSelector">
+        <apex:pageBlock title="会計表示期間">
+            <apex:pageMessages />
+
+            <apex:outputPanel styleClass="requiredInput" layout="block">
+            <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+            <apex:inputText value="{!termStartDt}" maxlength="10" size="14" style="height: 1em; font-size: 100%;"/>(yyyy/mm/dd)
+            &nbsp;〜 &nbsp;
+            <apex:inputText value="{!termEndDt}" maxlength="10" size="14" style="height: 1em; font-size: 100%;"/>(yyyy/mm/dd)
+            &nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="表示" action="{!queryAccAcountList}" onClick="blockUi(this.form)"/>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+
+    <apex:form id="pdfBulkAcountList">
+        <apex:pageBlock title="会計情報">
+        <apex:pageBlockButtons location="top">
+            <apex:commandButton value="会計書" action="{!redirectPlugin}" onClick="blockUi(this.form)" rendered="{!accAcountLst.size > 0}"/>
+        </apex:pageBlockButtons>
+
+        <apex:pageBlockTable value="{!accAcountLst}" var="v" columnsWidth="1%,9%,35%,35%,10%,10%">
+            <apex:column headerValue="会計済" >
+                <apex:image value="/img/checkbox_checked.gif" rendered="{!checkedFlgMap[v.Id]}"/>
+                <apex:image value="/img/checkbox_unchecked.gif" rendered="{!NOT(checkedFlgMap[v.Id])}"/>
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.AccountAcount__c.Fields.Name.label}" >
+                <apex:outputField value="{!v.name}"/>
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.AccountAcount__c.Fields.relaccount__c.label}" >
+                <apex:outputField value="{!v.relaccount__c}"/>
+            </apex:column>
+            <apex:column headerValue="{!$ObjectType.AccountAcount__c.Fields.Relreserve__c.label}" >
+                <apex:outputField value="{!v.Relreserve__c}"/>
+            </apex:column>
+            <apex:column value="{!v.Field147__c}" rendered="false"/>
+            <apex:column headerValue="会計金額(税込)" >
+                <apex:outputField value="{!v.Field151__c}"/>
+            </apex:column>
+            <apex:column >
+                <apex:facet name="header">{!$ObjectType.Lead__c.Fields['EntryTime__c'].label}</apex:facet>
+                <apex:outputText value="{0,date,yyyy/MM/dd}">
+                <apex:param value="{!v.Relreserve__r.EntryTime__c}"/>
+                </apex:outputText>
+            </apex:column>
+
+        </apex:pageBlockTable>
+
+        </apex:pageBlock>
+
+    </apex:form>
+<script>
+$=jQuery.noConflict();
+function blockUi(formobj) {
+    $("form[id='" + formobj.id +"']").block({
+         message: '<h1><img src="{!URLFOR($Resource.queryfiles, 'css/blockui/busy.gif')}" /> Processing...</h1>'
+    });
+    return true;
+}
+// Lock解除
+function unblockUi () {
+    $("form[id$=':batchProcess']").unblock();
+}
+</script>
+</apex:page>

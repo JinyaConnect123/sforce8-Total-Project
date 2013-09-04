@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>部屋とタイプ</value>
+    </caseValues>
+    <fields>
+        <label><!-- お部屋 --></label>
+        <name>refRoom__c</name>
+        <relationshipLabel><!-- RoomTypeNN --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Roomtype --></label>
+        <name>refRoomtype__c</name>
+        <relationshipLabel><!-- RoomTypeNN --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>RoomTypeNN Layout</layout>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Seq#</nameFieldLabel>
+</CustomObjectTranslation>

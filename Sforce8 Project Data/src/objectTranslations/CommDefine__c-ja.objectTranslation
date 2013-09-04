@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>共通定義</value>
+    </caseValues>
+    <fields>
+        <label><!-- AppNS --></label>
+        <name>AppNS__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter color value for Bridal page
+Ex: #A2B9FD(color code)
+or
+Red(color name) --></help>
+        <label><!-- BG Color --></label>
+        <name>BG_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- BookingCurves引数 --></label>
+        <name>BookingCurves__c</name>
+    </fields>
+    <fields>
+        <label><!-- 施設コード --></label>
+        <name>FacilityCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- 施設名 --></label>
+        <name>FacilityName__c</name>
+    </fields>
+    <fields>
+        <label><!-- 施設振込先１ --></label>
+        <name>FacilityPayee1__c</name>
+    </fields>
+    <fields>
+        <label><!-- 施設振込先２ --></label>
+        <name>FacilityPayee2__c</name>
+    </fields>
+    <fields>
+        <label><!-- 施設振込先３ --></label>
+        <name>FacilityPayee3__c</name>
+    </fields>
+    <fields>
+        <label><!-- 施設振込先口座 --></label>
+        <name>FacilityPayeeAcount__c</name>
+    </fields>
+    <fields>
+        <label><!-- 客室数 --></label>
+        <name>GuestRooms__c</name>
+    </fields>
+    <fields>
+        <label><!-- POSNo. --></label>
+        <name>POSNo__c</name>
+    </fields>
+    <fields>
+        <label><!-- プラン商品コード頭数字 --></label>
+        <name>PlanProdCdPrefixNum__c</name>
+    </fields>
+    <fields>
+        <label><!-- POSレジ --></label>
+        <name>Posreg__c</name>
+    </fields>
+    <fields>
+        <label><!-- ルームインジケータ履歴表示 --></label>
+        <name>RoomIndicatorShowHisFlg__c</name>
+    </fields>
+    <fields>
+        <label><!-- 予約ポップレポート名 --></label>
+        <name>RoomTypeReport__c</name>
+    </fields>
+    <fields>
+        <help><!-- True場合、予約ポップ画面に、E/B統計機能を起動する --></help>
+        <label><!-- E/B機能機能フラグ --></label>
+        <name>RoomUseEbFlg__c</name>
+    </fields>
+    <fields>
+        <help><!-- 0:切り捨て 
+1:四捨五入 
+税金計算の端数処理の項目 --></help>
+        <label><!-- 税の端数処理 --></label>
+        <name>RoundType__c</name>
+    </fields>
+    <fields>
+        <label><!-- 画面定時更新秒数 --></label>
+        <name>TimerSecond__c</name>
+    </fields>
+    <fields>
+        <help><!-- 1:税込、サービス料抜き
+2:税込、サービス料込
+3:税抜、サービス料抜き --></help>
+        <label><!-- 商品単価定義区分 --></label>
+        <name>UnitPriceDefKb__c</name>
+    </fields>
+</CustomObjectTranslation>

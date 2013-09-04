@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>部屋在庫管理</value>
+    </caseValues>
+    <fields>
+        <label><!-- 在庫数 --></label>
+        <name>QtyOfStock__c</name>
+    </fields>
+    <fields>
+        <label><!-- 部屋タイプ --></label>
+        <name>RoomTypeRef__c</name>
+        <relationshipLabel><!-- 部屋在庫 --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 在庫日付 --></label>
+        <name>StockDate__c</name>
+    </fields>
+</CustomObjectTranslation>

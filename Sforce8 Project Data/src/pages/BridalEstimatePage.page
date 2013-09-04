@@ -1,0 +1,276 @@
+<apex:page sidebar="false" controller="BridalEstimatepageController" >
+    <apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.queryfiles, 'js/jquery.blockUI.js')}"/>
+    <apex:includeScript value="{!$Resource.CommJs}"/>
+<style>
+                input.rounded 
+                {
+                    border: 1px solid #ccc;
+                    -moz-border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    border-radius: 3px;
+                    -moz-box-shadow: 2px 2px 3px #666;
+                    -webkit-box-shadow: 2px 2px 3px #666;
+                    box-shadow: 2px 2px 3px #666 inset;    
+                    padding: 4px 7px;
+                    outline: 0;
+                    -webkit-appearance: none;
+                }
+                input.rounded:focus 
+                {
+                    border-color: #339933;
+                }  
+                table th
+                {
+                    text-align:center;
+                    
+                } 
+                .thstyle
+                {
+                    background-color:#A55647;
+                    
+                    
+                } 
+            </style>
+            <script type="text/javascript">
+                          
+                function isNumberKey(evt)
+                {
+                    var charCode = (evt.which) ? evt.which : event.keyCode;
+                    if (charCode != 46 && charCode > 31 
+                    && (charCode < 48 || charCode > 57))
+                     return false;
+                    
+                    return true;
+                }
+                
+            </script>
+
+            <script>
+            
+                $=jQuery.noConflict();
+                jQuery(document).ready(function() {
+                $("input[id$=':gotoDate']").attr('readonly', true);
+                bindEvents();
+                });
+                
+                function DisplayResult(x)
+                {                
+                    finaltotal=$("input:text[id$='finalsum']").val();
+                    currentsum=$("input:text[id$='" + x+ "SumofAmount']").val();
+                    subtotal2val=$("input:text[id$='subtotal2']").val();
+                    subtotal2val=subtotal2val-currentsum;
+                    finaltotal=finaltotal-currentsum;
+                    currentvalue=$("input:text[id$='" + x+ "Amountid']").val();
+                    currentQuantity=$("input:text[id$='" + x+ "Quantityid']").val();
+                    if(currentQuantity=='')
+                    {
+                        sumofvalue=0;
+                    }
+                    else
+                    {
+                        sumofvalue=currentvalue*currentQuantity;
+                    }
+                    subtotal2val=subtotal2val+sumofvalue;
+                    finaltotal=finaltotal+sumofvalue;
+                    $("input:text[id$='"+x+"SumofAmount']").val(sumofvalue);
+                    $("input:text[id$='subtotal2']").val(subtotal2val);
+                    $("input:text[id$='finalsum']").val(finaltotal);                
+                }
+                
+                function dsDisplayResult(x)
+                {                
+                    finaltotal=$("input:text[id$='finalsum']").val();
+                    currentsum=$("input:text[id$='" + x+ "dsSumofAmount']").val();
+                    subtotalval=$("input:text[id$='subtotal']").val();
+                    subtotalval=subtotalval-currentsum;
+                    finaltotal=finaltotal-currentsum;
+                    currentvalue=$("input:text[id$='" + x+ "dsAmountid']").val();
+                    currentQuantity=$("input:text[id$='" + x+ "dsQuantityid']").val();
+                    if(currentQuantity=='')
+                    {
+                        sumofvalue=0;
+                    }
+                    else
+                    {
+                        sumofvalue=currentvalue*currentQuantity;
+                    }
+                    subtotalval=subtotalval+sumofvalue;
+                    finaltotal=finaltotal+sumofvalue;
+                    $("input:text[id$='"+x+"dsSumofAmount']").val(sumofvalue);
+                    $("input:text[id$='subtotal']").val(subtotalval);
+                    $("input:text[id$='finalsum']").val(finaltotal);                
+                }
+                
+                function display(x,y,obj)
+                {
+                    alert('values'+x +' '+y +' '+obj.id);
+                    //searchServer(x,y);
+                }
+                
+                function bindEvents() {
+                    $("input[id='dsfield5']").click(function() {
+                        currRowIndex = $(this).attr("rowindex");
+                        alert('row index'+currRowIndex);
+                        
+                    });
+                }
+            </script>
+    
+    <div style="background:{!$Setup.CommDefine__c.BG_Color__c};border-radius:10px;background-repeat: no-repeat round;background-size: 100% 100%;">
+        
+            <br/>
+            
+
+
+
+<apex:form style="width:100%;" id="formid">
+
+    <apex:pagemessages />
+    <center><apex:commandbutton value="Copy" action="{!CopyData}" rerender="formid"/><apex:commandButton value="Edit"/></center><br/>
+
+    <center><h1 style="font-size:25px;font-family:Arial Blue;"> 御見積書</h1></center>
+     <br/>
+
+  <table border="1"   frame="box" rules="all" width="100%" cellspacing="0" cellpadding="0" style="font-size:13px;font-family:Arial Blue;" id="thetable">
+    <tr><td></td><td></td><td></td><td></td><td>発行日</td><td><apex:inputfield value="{!Lead.EstimateDay__c}" styleclass="rounded" id="gotoDate"/></td>
+    </tr>
+    <tr><td>様　　　　　　様</td><td>名前</td><td><apex:inputText styleclass="rounded"/></td><td></td><td>会場</td><td><apex:inputField value="{!Lead.Rroom__c}" styleclass="rounded" required="true"/></td>
+    </tr>
+    <tr><td>41</td><td>人数</td><td width="20%"><apex:inputtext value="{!Lead.StayPersons__c}" styleclass="rounded"  style="text-align:right;"/></td><td>お見積り有効期限：1ヶ月</td><td>担当</td><td><apex:inputField value="{!Contact.ownerid}" styleclass="rounded"/></td>
+    </tr>
+  </table>
+</apex:form>
+    <br/>
+    <apex:form >
+    <!--<apex:actionFunction name="searchServer" action="{!onChangefield5}" rerender="dsAmount">
+                                  <apex:param name="rowindexmain" assignTo="{!rowindexmain}" value="" />
+                                  <apex:param name="rowindex" assignto="{!rowin}" value="" />                                  
+                              </apex:actionFunction>-->
+  </apex:form>
+<apex:form id="formf">
+    
+     <table  border="1" frame="box" rules="all" width="100%" cellspacing="0" cellpadding="2" style="font-size:15px;font-family:Arial Blue; font-color:Blue;" >
+         
+         <tr>
+             <th width="12%" class="thstyle"><h1 style="color:white;">種目</h1></th> 
+            
+             <th width="20%;" class="thstyle"><h1 style="color:white;">内容</h1></th> 
+           
+             <th width="13%" class="thstyle"><h1 style="color:white;">税込単価</h1></th> 
+             
+             <th width="10%" class="thstyle"><h1 style="color:white;">数量</h1></th> 
+             
+             <th width="15%" class="thstyle"><h1 style="color:white;">税込金額</h1></th> 
+            
+             <th width="30%" class="thstyle"><h1 style="color:white;">備　考</h1></th> 
+         </tr>
+         <apex:repeat value="{!dataStart}" var="ds">
+             <tr ><td align="center" width="12%" style="background-color:#FFCC99;">{!ds.opObject.AliasName__c}</td>
+             <td colspan="5" width="88%">
+            <table align="left" cellpadding="0" cellspacing="2"  border="0" width="100%" id="innertable">
+                <apex:repeat value="{!ds.lstAccMstr}" var="dsl" >
+                    <tr >
+                        <td width="22.7%" >{!dsl.lstAccMstr.name}</td>
+                        <!--<td width="15%" align="center" ><input type="text" size="6" class="rounded" style="text-align:right;" name="dsAmountid" value="{!dsl.lstAccMstr.Field5__c}" id="{!dsl.index}dsAmountid" rowindex="{!dsl.index}" onchange="dsDisplayResult('{!dsl.index}')" onkeypress="return isNumberKey(event)"/></td>
+                        <td width="11.4%" align="center" ><input type="text" class="rounded" size="2" style="text-align:right;" name="dsQuantityid" value="{!dsl.Quantity}" id="{!dsl.index}dsQuantityid" rowindex="{!dsl.index}" onchange="dsDisplayResult('{!dsl.index}')" onkeypress="return isNumberKey(event)"/></td>                        
+                        <td width="11.4%" align="center" ><apex:inputtext styleclass="rounded" size="2" style="text-align:right;" id="rrrdsquyantit"  value="{!dsl.Quantity}"   onkeypress="return isNumberKey(event)"/></td>
+                        <td width="17.1%" align="center" ><input type="text" class="rounded" size="10" style="text-align:right;" name="dsSumofAmount" value="{!dsl.Amount}" id="{!dsl.index}dsSumofAmount" rowindex="{!dsl.index}" disabled="true"/></td>
+                        <td align="right" ><apex:inputtext styleclass="rounded" value="{!dsl.comment}" style="width:88%" id="dscomment"/></td>-->
+                        <td width="15%" align="center" ><apex:inputtext styleclass="rounded" size="6" style="text-align:right;" id="dsfield5"  value="{!dsl.lstAccMstr.Field5__c}"  >
+                            <apex:actionSupport action="{!onChangefield5}" event="onchange" rerender="dsAmount,subtotal,finalsum">
+                                <apex:param name="rowindexmain" assignTo="{!rowindexmain}" value="{!ds.rowindex}"/>
+                                <apex:param name="rowindex" assignTo="{!rowin}" value="{!dsl.index}"/>
+                            </apex:actionSupport>
+                            </apex:inputtext>
+                        </td>
+                        <td width="11.4%" align="center" ><apex:inputtext styleclass="rounded" size="2" style="text-align:right;" id="dsquantity"  value="{!dsl.Quantity}"   >
+                            <apex:actionSupport action="{!onChangefield5}" event="onchange" rerender="dsAmount,subtotal,finalsum">
+                                <apex:param name="rowindexmain" assignTo="{!rowindexmain}" value="{!ds.rowindex}"/>
+                                <apex:param name="rowindex" assignTo="{!rowin}" value="{!dsl.index}"/>
+                            </apex:actionSupport>
+                            </apex:inputtext>
+                        </td>
+                        <td width="17.1%" align="center" ><div  style=" width:100px;border: 1px solid black;border-radius: 3px;height:22px;"><apex:outputLabel id="dsAmount"  value="{!dsl.Amount}" ></apex:outputLabel></div><!--<apex:inputtext styleclass="rounded" size="10" style="text-align:right;" id="dsAmount"  value="{!dsl.Amount}"   onkeypress="return isNumber(event)" />--></td>
+                        <td align="right" ><apex:inputtext styleclass="rounded" value="{!dsl.comment}" style="width:88%" id="dscomment"/></td>
+                    </tr>
+                </apex:repeat>
+                
+            </table>
+            </td>
+            </tr>
+         </apex:repeat>
+         
+         <tr>
+             <th >&nbsp;</th>
+             <td style="font:bold 15px calibri;border:0;"> 小計①(① subtotal)</td>
+             <th style="border:0;">&nbsp;</th>
+             <th style="border:0;">&nbsp;</th>
+             <td style="border:0;" align="center"><div  style=" width:100px;border: 1px solid black;border-radius: 3px;height:22px;"><apex:outputlabel value="{!Subtotal}" id="subtotal" style="font-weight:bold;"/></div><!--<apex:inputText styleclass="rounded" size="10" value="{!Subtotal}" id="subtotal"   style="border:0;background:transparent;font-weight:bold;text-align:right;"/>--></td>
+             <th style="border:0;">&nbsp;</th>
+         </tr>
+         <apex:repeat value="{!data}" var="da">
+             <tr ><td align="center" width="12%" style="background-color:#FFCC99;">{!da.opObject.AliasName__c}</td>
+             <td colspan="5" width="88%">
+             <table align="left" cellpadding="0" cellspacing="2"  border="0" width="100%" id="innertable2">
+                 <apex:repeat value="{!da.lstAccMstr}" var="dsv">
+                    <tr>
+                        <td width="22.7%">{!dsv.lstAccMstr.name}</td>
+                        <!--<td width="15%" align="center"><input type="text" class="rounded" size="6" style="text-align:right;" value="{!dsv.lstAccMstr.Field5__c}" id="{!dsv.index}Amountid" rowindex="{!dsv.index}" onchange="DisplayResult('{!dsv.index}')" onkeypress="return isNumberKey(event)"/></td>
+                        <td width="11.4%" align="center"><input type="text" class="rounded" style="text-align:right;" size="2" value="{!dsv.Quantity}" id="{!dsv.index}Quantityid" rowindex="{!dsv.index}" onchange="DisplayResult('{!dsv.index}')" onkeypress="return isNumberKey(event)"/></td>
+                        <td width="17.1%" align="center"><input type="text" class="rounded" size="10"  style="text-align:right;" value="{!dsv.Amount}" id="{!dsv.index}SumofAmount" rowindex="{!dsv.index}" disabled="true"/></td>
+                        <td align="right"><apex:inputtext styleclass="rounded" value="{!dsv.comment}" style="width:88%" id="comment"/></td>-->
+                        <td width="15%" align="center" ><apex:inputtext styleclass="rounded" size="6" style="text-align:right;" id="dsvfield5"  value="{!dsv.lstAccMstr.Field5__c}"  >
+                            <apex:actionSupport action="{!onChangequantity}" event="onchange" rerender="dsvAmount,subtotal2,finalsum">
+                                <apex:param name="rowindexmain" assignTo="{!rowindexmain}" value="{!da.rowindex}"/>
+                                <apex:param name="rowindex" assignTo="{!rowin}" value="{!dsv.index}"/>
+                            </apex:actionSupport>
+                            </apex:inputtext>
+                        </td>
+                        <td width="11.4%" align="center" ><apex:inputtext styleclass="rounded" size="2" style="text-align:right;" id="dsvquantity"  value="{!dsv.Quantity}"   >
+                            <apex:actionSupport action="{!onChangequantity}" event="onchange" rerender="dsvAmount,subtotal2,finalsum">
+                                <apex:param name="rowindexmain" assignTo="{!rowindexmain}" value="{!da.rowindex}"/>
+                                <apex:param name="rowindex" assignTo="{!rowin}" value="{!dsv.index}"/>
+                            </apex:actionSupport>
+                            </apex:inputtext>
+                        </td>
+                        <td width="17.1%" align="center"><div  style=" width:100px;border: 1px solid black;border-radius: 3px;height:22px;"><apex:outputLabel id="dsvAmount"  value="{!dsv.Amount}"></apex:outputLabel></div><!--<apex:inputtext styleclass="rounded" size="10" style="text-align:right;" id="dsvAmount"  value="{!dsv.Amount}"   onkeypress="return isNumberKey(event)" />--></td>
+                        <td align="right" ><apex:inputtext styleclass="rounded" value="{!dsv.comment}" style="width:88%" id="dsvcomment"/></td>
+
+    
+                    </tr>
+                 </apex:repeat>
+                    
+            </table>
+            </td>
+            </tr>
+        </apex:repeat>
+         
+        <tr style="border:0;">
+             <th >&nbsp;</th>
+             <td style="font:bold 15px calibri;border:0;">小計②(② subtotal) </td>
+             <th style="border:0;">&nbsp;</th>
+             <th style="border:0;">&nbsp;</th>
+             <td style="border:0;" align="center"><div  style=" width:100px;border: 1px solid black;border-radius: 3px;height:22px;"><apex:outputlabel value="{!Subtotal2}" id="subtotal2" style="font-weight:bold;"/></div><!--<apex:inputText styleclass="rounded" size="10" value="{!Subtotal2}" id="subtotal2"  style="border:0;background:transparent;text-align:right;"/>--></td>
+             <th style="border:0;">&nbsp;</th>
+         </tr>
+
+     </table>
+     
+     <div style="width:100%;">
+         <div style="margin-left:35%;font-size:20px;font-weight:bold;height:40px;border:1px solid black;">
+            総額（小計①＋小計②）
+            <apex:outputlabel value="¥" style="font-size:25px;padding-left:20px;"/><apex:outputlabel value="{!FinalSum}" styleclass="rounded" id="finalsum"   style="border:0;background:transparent;font-size:22px;font-weight:bold;padding-left:5px;"/><!--<apex:inputText value="{!FinalSum}" styleclass="rounded" id="finalsum"   style="border:0;background:transparent;font-size:22px;font-weight:bold;padding-left:5px;"></apex:inputText>--> 
+         </div><br/>
+         <center><apex:commandButton value="Copy" action="{!CopyData}" rerender="formx"/><apex:commandButton value="Edit"/></center>
+             <br/>
+     </div>
+     
+     
+    
+  
+  
+ </apex:form>
+ 
+ </div>
+</apex:page>

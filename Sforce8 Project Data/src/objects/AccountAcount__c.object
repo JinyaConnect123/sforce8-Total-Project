@@ -1,0 +1,1852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>BillInput</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>BillInput</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>*** Account relationship ***
+----------------Customer
+----------------    |
+----------------    |
+----------------    V
+Pay Tran -------&gt;[Total Tran]&lt;------Item Tran
+
+
+[ttotal.csv] Import
+[ttotal02.csv] Import</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>AmoutSpecialPrice__c</fullName>
+        <externalId>false</externalId>
+        <label>特別税</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>BillingCal__c</fullName>
+        <externalId>false</externalId>
+        <formula>relaccount__r.Account.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ご請求先</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactName__c</fullName>
+        <description>会計書の宛名先自動表示、設定用</description>
+        <externalId>false</externalId>
+        <formula>relaccount__r.LastName  &amp; &apos; &apos; &amp;  relaccount__r.FirstName</formula>
+        <label>お客様名</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Discount__c</fullName>
+        <externalId>false</externalId>
+        <label>割引金額</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>DivisionName__c</fullName>
+        <externalId>false</externalId>
+        <formula>if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;婚礼&quot;) || ISPICKVAL(Relreserve__r.Field367__c, &quot;フォトプラン&quot;) || ISPICKVAL(Relreserve__r.Field367__c, &quot;結納・顔合わせ&quot;), &quot;A_ブライダル部門&quot;, if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;法人予約_営業担当付&quot;) || ISPICKVAL(Relreserve__r.Field367__c, &quot;法人予約_営業担当無し&quot;), &quot;B_法人部門&quot;, &quot;C_個人部門&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$部門</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field100__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上合計2（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field101__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上合計2（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field102__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上外税対象金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field103__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上外税対象点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field104__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上内税対象（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field105__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上内税対象（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field106__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上内税対象（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field107__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上内税対象（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field108__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上非課税対象金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field109__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上非課税対象点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field110__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計1（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field111__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計1（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field112__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計2（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field113__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計2（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field114__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計3（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field115__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計3（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field116__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計4（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field117__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計4（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field118__c</fullName>
+        <externalId>false</externalId>
+        <label>金券販売合計　金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field119__c</fullName>
+        <externalId>false</externalId>
+        <label>金券販売合計　回数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field120__c</fullName>
+        <externalId>false</externalId>
+        <label>金券販売合計　枚数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field121__c</fullName>
+        <externalId>false</externalId>
+        <label>消費税（外）</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field122__c</fullName>
+        <externalId>false</externalId>
+        <label>消費税（内）</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field123__c</fullName>
+        <externalId>false</externalId>
+        <label>消費税（外）対象額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field124__c</fullName>
+        <externalId>false</externalId>
+        <label>消費税（内）対象額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field125__c</fullName>
+        <externalId>false</externalId>
+        <label>消費税非課税対象額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field126__c</fullName>
+        <externalId>false</externalId>
+        <label>請求金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field127__c</fullName>
+        <externalId>false</externalId>
+        <label>課税１　種別</label>
+        <length>1</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field128__c</fullName>
+        <externalId>false</externalId>
+        <label>課税１　税率</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field129__c</fullName>
+        <externalId>false</externalId>
+        <label>課税２　種別</label>
+        <length>1</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field130__c</fullName>
+        <externalId>false</externalId>
+        <label>課税２　税率</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field131__c</fullName>
+        <externalId>false</externalId>
+        <label>課税３　種別</label>
+        <length>1</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field132__c</fullName>
+        <externalId>false</externalId>
+        <label>課税３　税率</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field133__c</fullName>
+        <externalId>false</externalId>
+        <label>レシートＮｏ．（ＦＲＯＭ）</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field134__c</fullName>
+        <externalId>false</externalId>
+        <label>レシートＮｏ．（ＴＯ）</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field135__c</fullName>
+        <externalId>false</externalId>
+        <label>今回未精算　組数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field136__c</fullName>
+        <externalId>false</externalId>
+        <label>今回未精算　金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field137__c</fullName>
+        <externalId>false</externalId>
+        <label>釣銭準備金</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field138__c</fullName>
+        <externalId>false</externalId>
+        <label>シフト精算／日計精算回数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field139__c</fullName>
+        <externalId>false</externalId>
+        <label>今回精算日時</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field140__c</fullName>
+        <externalId>false</externalId>
+        <label>売上計5(外税込み)金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field141__c</fullName>
+        <externalId>false</externalId>
+        <label>営業日付</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field142__c</fullName>
+        <externalId>false</externalId>
+        <label>明細数（商品／監査）</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field143__c</fullName>
+        <externalId>false</externalId>
+        <label>明細数（支払）</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field145__c</fullName>
+        <externalId>false</externalId>
+        <label>レシートＮｏ．</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field146__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>扱者Ｎｏ．</label>
+        <referenceTo>Worker__c</referenceTo>
+        <relationshipLabel>会計</relationshipLabel>
+        <relationshipName>AccountAXNM</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Field147__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE(  Field114__c  )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$売上計III（税抜）金額</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field148__c</fullName>
+        <externalId>false</externalId>
+        <formula>DATE(VALUE(MID(Field53__c,1,4)),VALUE(MID(Field53__c,5,2)),VALUE(MID(Field53__c,7,2)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$会計日付</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Field149__c</fullName>
+        <externalId>false</externalId>
+        <formula>MID(Field53__c ,9,2) &amp; &quot;:&quot; &amp; MID(Field53__c ,11,2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$会計時刻</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field150__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>テーブルＮｏ．</label>
+        <referenceTo>Room__c</referenceTo>
+        <relationshipLabel>会計</relationshipLabel>
+        <relationshipName>AccountSF9v</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Field151__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE(  Field116__c  )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$売上計IV（税込）金額</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field152__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE( Field57__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$会計人数</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field154__c</fullName>
+        <externalId>false</externalId>
+        <formula>Relreserve__r.Receptiondate__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$予約受付日</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Field155__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field147__c / Field152__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>客単価 - 支払金額(税抜) / 会計人数</inlineHelpText>
+        <label>$客単価</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Field156__c</fullName>
+        <externalId>false</externalId>
+        <formula>if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;婚礼&quot;) , &quot;A1_婚礼(支払総額)&quot;,  if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;フォトプラン&quot;), &quot;B1_フォトプラン(支払総額)&quot;,  if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;結納・顔合わせ&quot;), &quot;C1_結納・顔合わせ(支払総額)&quot;, if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;法人予約_営業担当付&quot;), &quot;D1_法人予約_営業担当付(支払総額)&quot;, if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;法人予約_営業担当無し&quot;), &quot;E1_法人予約_営業担当無し(支払総額)&quot;, if ( ISPICKVAL(Relreserve__r.Field367__c, &quot;個人予約_法事&quot;), &quot;F1_個人予約_法事(支払総額)&quot;, &quot;G1_個人予約_一般(支払総額)&quot;))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$ご利用目的</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field157__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE( Field54__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$組数</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field158__c</fullName>
+        <externalId>false</externalId>
+        <formula>if (ISPICKVAL(Relreserve__r.ReservedContact__c, &quot;Akiyama&quot;), &quot;AKIYAMA&quot;, if (ISPICKVAL(Relreserve__r.ReservedContact__c, &quot;Kobayashi&quot;), &quot;KOBAYASHI&quot;, if (ISPICKVAL( Relreserve__r.Field357__c , &quot;Akiyama&quot;), &quot;AKIYAMA&quot;, if (ISPICKVAL( Relreserve__r.Field357__c , &quot;Kobayashi&quot;), &quot;KOBAYASHI&quot;,if (ISPICKVAL( Relreserve__r.ReservedContact__c , &quot;Yamauchi&quot;), &quot;YAMAUCHI&quot;,&quot;&quot;)))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>営業担当者</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field159__c</fullName>
+        <externalId>false</externalId>
+        <formula>Relreserve__r.Field310__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$プラン</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field39__c</fullName>
+        <externalId>false</externalId>
+        <label>取引種別</label>
+        <length>2</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field40__c</fullName>
+        <externalId>true</externalId>
+        <label>ＶＯＩＤレシートＮｏ．</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field42__c</fullName>
+        <externalId>false</externalId>
+        <label>担当者Ｎｏ．</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field43__c</fullName>
+        <externalId>false</externalId>
+        <label>元扱者Ｎｏ．</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field44__c</fullName>
+        <externalId>false</externalId>
+        <label>元担当者Ｎｏ．</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field45__c</fullName>
+        <externalId>false</externalId>
+        <label>会計種別</label>
+        <length>2</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field48__c</fullName>
+        <externalId>false</externalId>
+        <label>伝票枝番</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field49__c</fullName>
+        <externalId>false</externalId>
+        <label>伝票一連Ｎｏ．</label>
+        <length>5</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field50__c</fullName>
+        <externalId>false</externalId>
+        <label>新規オーダー時刻</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field51__c</fullName>
+        <externalId>false</externalId>
+        <label>追加オーダー時刻</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field52__c</fullName>
+        <externalId>false</externalId>
+        <label>料理提供時刻</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field53__c</fullName>
+        <externalId>false</externalId>
+        <label>会計日時</label>
+        <length>15</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field54__c</fullName>
+        <externalId>false</externalId>
+        <label>組数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field55__c</fullName>
+        <externalId>false</externalId>
+        <label>ＰＯＳ入力人数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field56__c</fullName>
+        <externalId>false</externalId>
+        <label>オーダー人数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field57__c</fullName>
+        <externalId>false</externalId>
+        <label>会計人数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field58__c</fullName>
+        <externalId>false</externalId>
+        <label>フリー１集計コード</label>
+        <length>2</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field59__c</fullName>
+        <externalId>false</externalId>
+        <label>フリー１集計名称</label>
+        <length>24</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field60__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上客数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field61__c</fullName>
+        <externalId>false</externalId>
+        <label>店頭売上客数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field62__c</fullName>
+        <externalId>false</externalId>
+        <label>売上高客数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field63__c</fullName>
+        <externalId>false</externalId>
+        <label>収入計客数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field64__c</fullName>
+        <externalId>false</externalId>
+        <label>お通し人数</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field65__c</fullName>
+        <externalId>false</externalId>
+        <label>控え番号（任意情報１）</label>
+        <length>5</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field66__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>会計人数の男性人数</inlineHelpText>
+        <label>客層１</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field67__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>会計人数の女性人数</inlineHelpText>
+        <label>客層２</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field68__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>会計人数の子供人数</inlineHelpText>
+        <label>客層３</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field69__c</fullName>
+        <externalId>false</externalId>
+        <label>客層４</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field70__c</fullName>
+        <externalId>false</externalId>
+        <label>客層５</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field71__c</fullName>
+        <externalId>false</externalId>
+        <label>ディッシュアップ時間帯開始時間</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Field72__c</fullName>
+        <externalId>false</externalId>
+        <label>ディッシュアップ時間帯終了時間</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Field73__c</fullName>
+        <externalId>false</externalId>
+        <label>アイテム総点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field74__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食合計1（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field75__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食合計1（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field76__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食合計2（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field77__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食合計2（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field78__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食外税対象金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field79__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食外税対象点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field7__c</fullName>
+        <externalId>false</externalId>
+        <label>伝票Ｎｏ．</label>
+        <length>5</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field80__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食内税対象（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field81__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食内税対象（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field82__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食内税対象（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field83__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食内税対象（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field84__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食非課税対象金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field85__c</fullName>
+        <externalId>false</externalId>
+        <label>店内飲食非課税対象点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field86__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト合計1（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field87__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト合計1（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field88__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト合計2（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field89__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト合計2（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field90__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト外税対象金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field91__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト外税対象点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field92__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト内税対象（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field93__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト内税対象（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field94__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト内税対象（内税込み）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field95__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト内税対象（内税込み）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field96__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト非課税対象金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field97__c</fullName>
+        <externalId>false</externalId>
+        <label>テイクアウト非課税対象点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field98__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上合計1（内税抜き）金額</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field99__c</fullName>
+        <externalId>false</externalId>
+        <label>レストラン売上合計1（内税抜き）点数</label>
+        <length>8</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OutSideAccount__c</fullName>
+        <externalId>false</externalId>
+        <formula>if ( Field39__c =&quot;00&quot; &amp;&amp;  Field40__c =&quot;&quot; &amp;&amp;  Field147__c &lt;&gt; 0, 1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>取引種別が00でVOIDなし売上金額が¥0でないのとき、集計対象の値１を返す</inlineHelpText>
+        <label>$集計対象外</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>POSNo__c</fullName>
+        <defaultValue>&apos;0001&apos;</defaultValue>
+        <externalId>false</externalId>
+        <label>POSNo.</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PlanNo__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Plan Number がゼロのときは、プランではないとする</inlineHelpText>
+        <label>Plan#</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Relreserve__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>ご予約</label>
+        <referenceTo>Lead__c</referenceTo>
+        <relationshipLabel>会計</relationshipLabel>
+        <relationshipName>Account8Wls</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SearchDate__c</fullName>
+        <externalId>false</externalId>
+        <label>SearchDate</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Seq__c</fullName>
+        <externalId>false</externalId>
+        <formula>Field150__r.Seq__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>$Seq.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SumSrvPriceExcTax__c</fullName>
+        <externalId>false</externalId>
+        <label>サービス料（税抜）</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>SumSrvPriceIncTax__c</fullName>
+        <externalId>false</externalId>
+        <label>サービス料（税込）</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>TableNo__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>レストランでの実際のテーブル＃</inlineHelpText>
+        <label>TableNo</label>
+        <length>4</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target__c</fullName>
+        <externalId>false</externalId>
+        <formula>if (  OutSideAccount__c  = 1, IMAGE(&quot;/resource/&quot; &amp; $Setup.CommDefine__c.AppNS__c &amp; &quot;A&quot;, &quot;対象&quot;), &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>A</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TeaTimeFlag__c</fullName>
+        <externalId>false</externalId>
+        <formula>if ( Field155__c &gt;= 2450, 0,1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>客単価 &gt;= ¥3,150のとき、レストランにて食事&amp;ドリンク(TeaTimeFlag = 0)、以外はレストランにて喫茶となる</inlineHelpText>
+        <label>TeaTimeFlag</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>comment__c</fullName>
+        <externalId>false</externalId>
+        <label>コメント</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>frs__c</fullName>
+        <externalId>false</externalId>
+        <label>予約会計</label>
+        <referenceTo>RsvAccount__c</referenceTo>
+        <relationshipLabel>会計</relationshipLabel>
+        <relationshipName>AccountYLM3</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>relaccount__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>お客様</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>会計</relationshipLabel>
+        <relationshipName>accountjvxI</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <label>会計</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Field145__c</columns>
+        <columns>frs__c</columns>
+        <columns>Field147__c</columns>
+        <columns>Field151__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>すべて選択</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{YYYY}{MM}{DD}-{000}</displayFormat>
+        <label>Account#</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <searchLayouts>
+        <customTabListAdditionalFields>Field145__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field150__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field148__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Relreserve__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field39__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field152__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field147__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Field151__c</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Field145__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field150__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field148__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Relreserve__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field39__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field152__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field147__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Field151__c</lookupDialogsAdditionalFields>
+        <lookupFilterFields>Field145__c</lookupFilterFields>
+        <lookupFilterFields>Field148__c</lookupFilterFields>
+        <lookupFilterFields>Relreserve__c</lookupFilterFields>
+        <lookupFilterFields>Field150__c</lookupFilterFields>
+        <lookupFilterFields>Field152__c</lookupFilterFields>
+        <lookupPhoneDialogsAdditionalFields>Field145__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field150__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field148__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Relreserve__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field39__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field152__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field147__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Field151__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchFilterFields>Field145__c</searchFilterFields>
+        <searchFilterFields>Field150__c</searchFilterFields>
+        <searchFilterFields>Field148__c</searchFilterFields>
+        <searchFilterFields>Relreserve__c</searchFilterFields>
+        <searchFilterFields>Field39__c</searchFilterFields>
+        <searchFilterFields>Field152__c</searchFilterFields>
+        <searchFilterFields>Field147__c</searchFilterFields>
+        <searchFilterFields>Field151__c</searchFilterFields>
+        <searchResultsAdditionalFields>Field145__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field150__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field148__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Relreserve__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field39__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field152__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field147__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Field151__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>AccountBillPdf</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>請求書</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>/*
+var contactNm = prompt(&quot;会計宛名は&quot;,&quot;{!JSENCODE(AccountAcount__c.ContactName__c)}&quot;);
+
+if (contactNm != null) {
+	var custNameUrl = &quot;?id={!AccountAcount__c.Id}&amp;cuName=&quot;+encodeURIComponent(contactNm);
+      
+        var url = &quot;{!URLFOR(&apos;/apex/&apos; &amp; $Setup.CommDefine__c.AppNS__c &amp; &apos;BillPDF&apos;)}&quot; + custNameUrl;
+	window.open(url);
+}*/
+
+{!REQUIRESCRIPT(&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;)}
+
+function autoLoader_js() {
+
+  if(jQuery) {
+
+  var d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;], close;
+  if (!d) {
+    // if the dialog doesn&apos;t exist create one
+    d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;] = new SimpleDialog(&apos;MyCoolDialog&apos;, false);
+    // set general information on your dialog and finally run the create function
+    d.setWidth(400);
+    d.createDialog();
+  }
+  d.setTitle(&apos;請求書&apos;);
+
+  // give your dialog some content (I usually use an iframe linking to another visualforce page
+  // change the url, height, width to your needs
+  $(d.dialog).find(&apos;#MyCoolDialogInner&apos;).html(&apos;&lt;div class=&quot;pbBody&quot;&gt;&lt;div&gt;&lt;div class=&quot;pbSubsection&quot;&gt;&lt;table class=&quot;detailList&quot; border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot;&gt;&lt;tr&gt;&lt;td class=&quot;labelCol  first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;請求宛名&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col  first &quot;&gt;&lt;input id=&quot;dialog_accName&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!JSINHTMLENCODE(AccountAcount__c.ContactName__c)}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;labelCol&quot;&gt;&lt;label&gt;発行日付&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col  first &quot;&gt;&lt;input id=&quot;dialog_acountdate&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!TODAY()}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&quot;vertical-align: top;&quot;&gt;&lt;td class=&quot;labelCol &quot;&gt;&lt;label&gt;コメント&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col &quot;&gt;&lt;textarea id=&quot;dialog_comment&quot;rows=&quot;4&quot; cols=&quot;40&quot;/&gt;&lt;p&gt;コメント：１行18文字、4列以内入力ください。&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;text-align: right;&quot;&gt;&lt;input class=&quot;btn&quot; id=&quot;dialog_cancelBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;キャンセル&quot; /&gt;    &lt;input class=&quot;btn&quot; id=&quot;dialog_printoutBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;請求書作成&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&apos;);
+
+  $(d.dialog).find(&apos;input[type=&quot;button&quot;]&apos;).on(&apos;click&apos;, function() {
+  	var btnId = $(this).attr(&quot;id&quot;);
+    if (btnId == &quot;dialog_cancelBtn&quot;) {
+      d.hide();
+    } else if (btnId == &quot;dialog_printoutBtn&quot;) {
+      // 請求書画面を起動する
+      var custName = $(&quot;#dialog_accName&quot;).val();
+      var comment = $(&quot;#dialog_comment&quot;).val();
+      var reqDate = $(&quot;#dialog_acountdate&quot;).val();
+      //var payee1 = $(&quot;#dialog_payee1&quot;).val();
+      //var payee2 = $(&quot;#dialog_payee2&quot;).val();
+      //var payee3 = $(&quot;#dialog_payee3&quot;).val();
+      var url = &quot;{!URLFOR(&apos;/apex/&apos; &amp; $Setup.CommDefine__c.AppNS__c &amp; &apos;BillPDF&apos;)}&quot;;
+      var custNameUrl = &quot;?id={!AccountAcount__c.Id}&amp;cuName=&quot; + encodeURIComponent(custName) + &quot;&amp;comment=&quot;+encodeURIComponent(comment);
+      custNameUrl  +=&quot;&amp;pdt=&quot; + encodeURIComponent(reqDate );
+      //custNameUrl += &quot;&amp;py1=&quot;+encodeURIComponent(payee1) + &quot;&amp;py2=&quot;+encodeURIComponent(payee2) + &quot;&amp;py3=&quot;+encodeURIComponent(payee3);
+      window.open(url + custNameUrl);
+      d.hide();
+    }
+  });
+  // we also need to make sure we have a close button on the dialog
+  if ($(d.dialog).find(&apos;#InlineEditDialogX&apos;).size() == 0) {
+    // if there is none we create it
+    close = $(&apos;&lt;a id=&quot;InlineEditDialogX&quot; title=&quot;Close&quot; tabindex=&quot;0&quot; href=&quot;javascript:void(0)&quot; class=&quot;dialogClose&quot;&gt;Close&lt;/a&gt;&apos;);
+    // add some functionality to the close button (for the default ui we change the classname on mouseover/out
+    close.mouseover(function() {
+      this.className = &apos;dialogCloseOn&apos;;
+    }).mouseout(function() {
+      this.className = &apos;dialogClose&apos;;
+    }).click(function() {
+      // finally our on click handler which closes the dialog
+      d.hide();
+    });
+    // insert the new generated close button before the h2 tag so it&apos;ll show up on the top right corner
+    close.insertBefore($(d.dialog).find(&apos;.topLeft h2&apos;));
+  }
+  // now it&apos;s time to show the new dialog
+  d.show();
+
+  }
+}
+autoLoader_js();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>BlukAccAcountBtn</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>一括会計</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;)}
+function autoLoader_js() {
+if(jQuery) {
+var d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;], close;
+if (!d) {
+// if the dialog doesn&apos;t exist create one
+d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;] = new SimpleDialog(&apos;MyCoolDialog&apos;, false);
+// set general information on your dialog and finally run the create function
+d.setWidth(400);
+d.createDialog();
+}
+d.setTitle(&apos;会計書&apos;); 
+
+// 請求宛名入力項目表示可否判断
+var receiptHtml = &quot;&quot;;
+if ({!$Setup.CommDefine__c.FacilityCode__c} == &apos;2&apos;) {
+receiptHtml += &apos;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;領収書宛名&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;input id=&quot;dialog_receiptName&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!JSINHTMLENCODE( AccountAcount__c.BillingCal__c)}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&apos;;
+}
+
+
+// 統合印刷（室料・朝食・ALL）
+　var mergePrint = &apos;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;統合印刷&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;select id=&quot;dialog_printType&quot;&gt;&lt;option value=&quot;r&quot;&gt;室料&lt;/option&gt;&lt;option value=&quot;rf&quot;&gt;室料・朝食&lt;/option&gt;&lt;option value=&quot;&quot; selected&gt;ALL&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;&apos;;
+
+// give your dialog some content (I usually use an iframe linking to another visualforce page
+// change the url, height, width to your needs
+$(d.dialog).find(&apos;#MyCoolDialogInner&apos;).html(&apos;&lt;div class=&quot;pbBody&quot;&gt;&lt;div&gt;&lt;div class=&quot;pbSubsection&quot;&gt;&lt;table class=&quot;detailList&quot; border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot;&gt;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;会計宛名&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;input id=&quot;dialog_accName&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!JSINHTMLENCODE(AccountAcount__c.ContactName__c)}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&apos; +receiptHtml + mergePrint +&apos;&lt;tr style=&quot;vertical-align: top;&quot;&gt;&lt;td class=&quot;labelCol &quot;&gt;&lt;label&gt;言語&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col &quot;&gt;&lt;select id=&quot;dialog_language&quot;&gt;&lt;option value=&quot;jp&quot;&gt;日本語&lt;/option&gt;&lt;option value=&quot;en&quot;&gt;英語&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;text-align: right;&quot;&gt;&lt;input class=&quot;btn&quot; id=&quot;dialog_cancelBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;キャンセル&quot; /&gt; &lt;input class=&quot;btn&quot; id=&quot;dialog_printoutBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;会計書作成&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&apos;);
+
+$(d.dialog).find(&apos;input[type=&quot;button&quot;]&apos;).on(&apos;click&apos;, function() {
+var btnId = $(this).attr(&quot;id&quot;);
+if (btnId == &quot;dialog_cancelBtn&quot;) {
+d.hide();
+} else if (btnId == &quot;dialog_printoutBtn&quot;) {
+// 請求書画面を起動する
+var receiptNameLen = $(&quot;#dialog_receiptName&quot;).length;
+var receiptName = $(&quot;#dialog_receiptName&quot;).val();
+var custName = $(&quot;#dialog_accName&quot;).val();
+var language= $(&quot;#dialog_language&quot;).val();
+var printType=$(&quot;#dialog_printType&quot;).val();
+
+var url = &quot;{!URLFOR(&apos;/apex/AccountPdfBulkSelector&apos;)}&quot;;
+var custNameUrl = &quot;?id={!AccountAcount__c.Id}&amp;cuName=&quot; + encodeURIComponent(custName) + &quot;&amp;language=&quot;+encodeURIComponent(language) + &quot;&amp;pType=&quot;+encodeURIComponent(printType);
+if (receiptNameLen &gt; 0) {
+custNameUrl += &quot;&amp;recpName=&quot; + encodeURIComponent(receiptName);
+}
+window.open(url + custNameUrl);
+d.hide();
+}
+});
+// we also need to make sure we have a close button on the dialog
+if ($(d.dialog).find(&apos;#InlineEditDialogX&apos;).size() == 0) {
+// if there is none we create it
+close = $(&apos;&lt;a id=&quot;InlineEditDialogX&quot; title=&quot;Close&quot; tabindex=&quot;0&quot; href=&quot;javascript:void(0)&quot; class=&quot;dialogClose&quot;&gt;Close&lt;/a&gt;&apos;);
+// add some functionality to the close button (for the default ui we change the classname on mouseover/out
+close.mouseover(function() {
+this.className = &apos;dialogCloseOn&apos;;
+}).mouseout(function() {
+this.className = &apos;dialogClose&apos;;
+}).click(function() {
+// finally our on click handler which closes the dialog
+d.hide();
+});
+// insert the new generated close button before the h2 tag so it&apos;ll show up on the top right corner
+close.insertBefore($(d.dialog).find(&apos;.topLeft h2&apos;));
+}
+// now it&apos;s time to show the new dialog
+d.show();
+}
+}
+autoLoader_js();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>EnkaiKaikeishoBtn</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>会計書（宴会）</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>/*
+var contactNm = prompt(&quot;会計宛名は&quot;,&quot;{!JSENCODE(AccountAcount__c.ContactName__c)}&quot;);
+if (contactNm != null) {
+var custNameUrl = &quot;?id={!AccountAcount__c.Id}&amp;cuName=&quot;+encodeURIComponent(contactNm) + &quot;&amp;pgsize=28&quot;;
+var url = &quot;{!URLFOR(&apos;/apex/&apos; &amp; $Setup.CommDefine__c.AppNS__c &amp; &apos;AccountPDF&apos;)}&quot; + custNameUrl;
+window.open(url);
+}*/
+{!REQUIRESCRIPT(&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;)} 
+function autoLoader_js() { 
+if(jQuery) { 
+var d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;], close; 
+if (!d) { 
+// if the dialog doesn&apos;t exist create one 
+d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;] = new SimpleDialog(&apos;MyCoolDialog&apos;, false); 
+// set general information on your dialog and finally run the create function 
+d.setWidth(400); 
+d.createDialog(); 
+} 
+d.setTitle(&apos;会計書&apos;); 
+// give your dialog some content (I usually use an iframe linking to another visualforce page 
+// change the url, height, width to your needs 
+$(d.dialog).find(&apos;#MyCoolDialogInner&apos;).html(&apos;&lt;div class=&quot;pbBody&quot;&gt;&lt;div&gt;&lt;div class=&quot;pbSubsection&quot;&gt;&lt;table class=&quot;detailList&quot; border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot;&gt;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;会計宛名&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;input id=&quot;dialog_accName&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!JSINHTMLENCODE(AccountAcount__c.ContactName__c)}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style=&quot;vertical-align: top;&quot;&gt;&lt;td class=&quot;labelCol &quot;&gt;&lt;label&gt;言語&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col &quot;&gt;&lt;select id=&quot;dialog_language&quot;&gt;&lt;option value=&quot;jp&quot;&gt;日本語&lt;/option&gt;&lt;option value=&quot;en&quot;&gt;英語&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;text-align: right;&quot;&gt;&lt;input class=&quot;btn&quot; id=&quot;dialog_cancelBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;キャンセル&quot; /&gt; &lt;input class=&quot;btn&quot; id=&quot;dialog_printoutBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;会計書作成&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&apos;); 
+$(d.dialog).find(&apos;input[type=&quot;button&quot;]&apos;).on(&apos;click&apos;, function() { 
+var btnId = $(this).attr(&quot;id&quot;); 
+if (btnId == &quot;dialog_cancelBtn&quot;) { 
+d.hide(); 
+} else if (btnId == &quot;dialog_printoutBtn&quot;) { 
+// 請求書画面を起動する 
+var custName = $(&quot;#dialog_accName&quot;).val(); 
+var language= $(&quot;#dialog_language&quot;).val(); 
+var url = &quot;{!URLFOR(&apos;/apex/&apos; &amp; $Setup.CommDefine__c.AppNS__c &amp; &apos;AccountPDF&apos;)}&quot;; 
+var custNameUrl = &quot;?id={!AccountAcount__c.Id}&amp;cuName=&quot; + encodeURIComponent(custName) + &quot;&amp;language=&quot;+encodeURIComponent(language) + &quot;&amp;pgsize=28&quot;;
+window.open(url + custNameUrl); 
+d.hide(); 
+} 
+}); 
+// we also need to make sure we have a close button on the dialog 
+if ($(d.dialog).find(&apos;#InlineEditDialogX&apos;).size() == 0) { 
+// if there is none we create it 
+close = $(&apos;&lt;a id=&quot;InlineEditDialogX&quot; title=&quot;Close&quot; tabindex=&quot;0&quot; href=&quot;javascript:void(0)&quot; class=&quot;dialogClose&quot;&gt;Close&lt;/a&gt;&apos;); 
+// add some functionality to the close button (for the default ui we change the classname on mouseover/out 
+close.mouseover(function() { 
+this.className = &apos;dialogCloseOn&apos;; 
+}).mouseout(function() { 
+this.className = &apos;dialogClose&apos;; 
+}).click(function() { 
+// finally our on click handler which closes the dialog 
+d.hide(); 
+}); 
+// insert the new generated close button before the h2 tag so it&apos;ll show up on the top right corner 
+close.insertBefore($(d.dialog).find(&apos;.topLeft h2&apos;)); 
+} 
+// now it&apos;s time to show the new dialog 
+d.show(); 
+} 
+} 
+autoLoader_js();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Kaikeisho</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>会計書</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js&quot;)}
+function autoLoader_js() {
+if(jQuery) {
+var d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;], close;
+if (!d) {
+// if the dialog doesn&apos;t exist create one
+d = sfdcPage.dialogs[&apos;MyCoolDialog&apos;] = new SimpleDialog(&apos;MyCoolDialog&apos;, false);
+// set general information on your dialog and finally run the create function
+d.setWidth(400);
+d.createDialog();
+}
+d.setTitle(&apos;会計書&apos;);
+
+// 請求宛名入力項目表示可否判断
+var receiptHtml = &quot;&quot;;
+//if ({!$Setup.CommDefine__c.FacilityCode__c} == &apos;2&apos;) {
+receiptHtml += &apos;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;領収書宛名&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;input id=&quot;dialog_receiptName&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!JSINHTMLENCODE( AccountAcount__c.BillingCal__c)}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&apos;;
+//}
+// 統合印刷（室料・朝食・ALL）
+　var mergePrint = &apos;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;統合印刷&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;select id=&quot;dialog_printType&quot;&gt;&lt;option value=&quot;r&quot;&gt;室料&lt;/option&gt;&lt;option value=&quot;rf&quot;&gt;室料・朝食&lt;/option&gt;&lt;option value=&quot;&quot; selected&gt;ALL&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;&apos;;
+
+// give your dialog some content (I usually use an iframe linking to another visualforce page
+// change the url, height, width to your needs
+$(d.dialog).find(&apos;#MyCoolDialogInner&apos;).html(&apos;&lt;div class=&quot;pbBody&quot;&gt;&lt;div&gt;&lt;div class=&quot;pbSubsection&quot;&gt;&lt;table class=&quot;detailList&quot; border=&quot;0&quot; cellpadding=&quot;1&quot; cellspacing=&quot;1&quot;&gt;&lt;tr&gt;&lt;td class=&quot;labelCol first &quot; width=&quot;80px&quot;&gt;&lt;label&gt;会計宛名&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col first &quot;&gt;&lt;input id=&quot;dialog_accName&quot; type=&quot;text&quot; size=&quot;42&quot; value=&quot;{!JSINHTMLENCODE(AccountAcount__c.ContactName__c)}&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&apos; + receiptHtml + mergePrint +&apos;&lt;tr style=&quot;vertical-align: top;&quot;&gt;&lt;td class=&quot;labelCol &quot;&gt;&lt;label&gt;言語&lt;/label&gt;&lt;/td&gt;&lt;td class=&quot;data2Col &quot;&gt;&lt;select id=&quot;dialog_language&quot;&gt;&lt;option value=&quot;jp&quot;&gt;日本語&lt;/option&gt;&lt;option value=&quot;en&quot;&gt;英語&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;text-align: right;&quot;&gt;&lt;input class=&quot;btn&quot; id=&quot;dialog_cancelBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;キャンセル&quot; /&gt; &lt;input class=&quot;btn&quot; id=&quot;dialog_printoutBtn&quot; style=&quot;width: 100px&quot; type=&quot;button&quot; value=&quot;会計書作成&quot; /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&apos;);
+
+$(d.dialog).find(&apos;input[type=&quot;button&quot;]&apos;).on(&apos;click&apos;, function() {
+var btnId = $(this).attr(&quot;id&quot;);
+if (btnId == &quot;dialog_cancelBtn&quot;) {
+d.hide();
+} else if (btnId == &quot;dialog_printoutBtn&quot;) {
+// 請求書画面を起動する
+var custName = $(&quot;#dialog_accName&quot;).val();
+var receiptNameLen = $(&quot;#dialog_receiptName&quot;).length;
+var receiptName = $(&quot;#dialog_receiptName&quot;).val();
+var printType=$(&quot;#dialog_printType&quot;).val();
+var language= $(&quot;#dialog_language&quot;).val();
+var url = &quot;{!URLFOR(&apos;/apex/AccountPdfSwitch&apos;)}&quot;;
+var custNameUrl = &quot;?id={!AccountAcount__c.Id}&amp;cuName=&quot; + encodeURIComponent(custName) + &quot;&amp;language=&quot;+encodeURIComponent(language) + &quot;&amp;pType=&quot;+encodeURIComponent(printType);
+if (receiptNameLen &gt; 0) {
+custNameUrl += &quot;&amp;recpName=&quot; + encodeURIComponent(receiptName);
+}
+window.open(url + custNameUrl);
+d.hide();
+}
+});
+// we also need to make sure we have a close button on the dialog
+if ($(d.dialog).find(&apos;#InlineEditDialogX&apos;).size() == 0) {
+// if there is none we create it
+close = $(&apos;&lt;a id=&quot;InlineEditDialogX&quot; title=&quot;Close&quot; tabindex=&quot;0&quot; href=&quot;javascript:void(0)&quot; class=&quot;dialogClose&quot;&gt;Close&lt;/a&gt;&apos;);
+// add some functionality to the close button (for the default ui we change the classname on mouseover/out
+close.mouseover(function() {
+this.className = &apos;dialogCloseOn&apos;;
+}).mouseout(function() {
+this.className = &apos;dialogClose&apos;;
+}).click(function() {
+// finally our on click handler which closes the dialog
+d.hide();
+});
+// insert the new generated close button before the h2 tag so it&apos;ll show up on the top right corner
+close.insertBefore($(d.dialog).find(&apos;.topLeft h2&apos;));
+}
+// now it&apos;s time to show the new dialog
+d.show();
+
+}
+}
+autoLoader_js();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>VOID</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>VOID</masterLabel>
+        <openType>sidebar</openType>
+        <page>AccountsVoidProcess</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>VOIDCancel</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>VOID取消</masterLabel>
+        <openType>sidebar</openType>
+        <page>AccountsVoidCancelProcess</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

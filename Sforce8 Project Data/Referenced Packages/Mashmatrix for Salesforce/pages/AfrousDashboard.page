@@ -1,0 +1,12 @@
+<apex:page sidebar="false">
+  <c:dashboard height="100%-130" 
+               targetId="{!$CurrentPage.parameters.targetId}"
+               contextId="{!$CurrentPage.parameters.id}"
+               staticView="{!$CurrentPage.parameters.staticView}"
+               hideMenubar="{!$CurrentPage.parameters.hideMenubar}"
+               hideDrawer="{!$CurrentPage.parameters.hideDrawer}"
+               collapseDrawer="{!$CurrentPage.parameters.collapseDrawer}"
+               hideNavigator="{!$CurrentPage.parameters.hideNavigator}"
+               hideDock="{!$CurrentPage.parameters.hideDock}"
+  />
+</apex:page>

@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Afrous Dashboard for Salesforce (Old S-Control Source)</title>
+<!--
+
+ Before Winter'09, Visualforce Pages and Static Resources were not packagable. 
+ S-Control was the only way to deploy view code so we have to depend on external static file server (Amazon S3). 
+ Now we switched to Visualforce Pages and Static Resources of Force.com, so this code becomes obsolete.
+
+-->
+<!--
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://afrous.s3.amazonaws.com/ext-2.1/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="https://afrous.s3.amazonaws.com/release/1.0.2.2/css/afrous-ext-component.css" />
+    <link rel="stylesheet" type="text/css" href="https://afrous.s3.amazonaws.com/release/1.0.2.2/css/afrous-dashboard.css" />
+    <script type="text/javascript" charset="utf-8" src="https://afrous.s3.amazonaws.com/ext-2.1/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://afrous.s3.amazonaws.com/ext-2.1/ext-all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://afrous.s3.amazonaws.com/FusionChartsFree/JSClass/FusionCharts.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="/soap/ajax/13.0/connection.js"></script>
+    <script type="text/javascript">sforce.connection.defaultNamespace='afdsf';</script>
+
+    <script type="text/javascript" charset="utf-8" src="https://afrous.s3.amazonaws.com/release/1.0.2.2/js/afrous-dashboard-sf-all.js"></script>
+
+-->
+  </head>
+  <body>
+This SControl tab is now obsolete. Please use "Afrous Dashboard" Visualforce Tab instead.
+  </body>
+</html>
